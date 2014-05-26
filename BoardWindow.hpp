@@ -1,3 +1,6 @@
+#ifndef BOARD_WINDOW_HPP
+#define BOARD_WINDOW_HPP
+
 #include <QMainWindow>
 #include "FieldButton.hpp"
 #include <QPushButton>
@@ -26,11 +29,10 @@ class BoardWindow : public QMainWindow
     QPushButton asd;
     NewGameWindow dial;
     QList<QList<FieldButton*> > buttons;
-    //QMenuBar *menuBar;
     QAction *newGameAction;
 
   public:
-    BoardWindow(QWidget *parent, unsigned int height, unsigned int width);
+    BoardWindow(QWidget *parent = 0);
     ~BoardWindow();
     void deleteButtons();
     void prepareButtons(unsigned int height, unsigned int width);
@@ -38,3 +40,4 @@ class BoardWindow : public QMainWindow
   private slots:
     void newGame();
 };
+#endif

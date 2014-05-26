@@ -2,7 +2,7 @@
 #include <QDebug>
 #include <QSizePolicy>
 
-BoardWindow::BoardWindow(QWidget *parent, unsigned int height, unsigned int width)
+BoardWindow::BoardWindow(QWidget *parent)
 {
   newGameAction = this->menuBar()->addAction("Nowa gra");
   connect(newGameAction, SIGNAL(triggered()), this, SLOT(newGame()));
@@ -25,10 +25,16 @@ BoardWindow::BoardWindow(QWidget *parent, unsigned int height, unsigned int widt
   mainLayout->addLayout(upperLayout);
   mainLayout->addLayout(boardLayout);
   centralWidget->setLayout(mainLayout);
-  prepareButtons(height, width);
-  show();
-  this->resize(30,30);
-  this->setFixedSize(this->size());
+  if (dial.exec())
+  {
+    prepareButtons(dial.height,dial.width);
+    show();
+    this->resize(30,30);
+    this->setFixedSize(this->size());
+  } else
+  {
+      QApplication::quit();
+  }
 }
 
 void BoardWindow::prepareButtons(unsigned int height, unsigned int width)
@@ -72,11 +78,14 @@ BoardWindow::~BoardWindow()
 
 void BoardWindow::newGame()
 {
-  QMessageBox::StandardButton reply;
-  reply = QMessageBox::question(this, "Nowa gra", "Na pewno?", QMessageBox::Yes|QMessageBox::No);
-  if (reply == QMessageBox::Yes) 
+  if (dial.exec())
   {
-    //TODO :STUB is it?
-    QApplication::quit();
+    hide();
+    deleteButtons();
+    prepareButtons(dial.height,dial.width);
+    setMaximumSize(QWIDGETSIZE_MAX,QWIDGETSIZE_MAX); setMinimumSize(0,0);
+    show();
+    this->resize(30,30);
+    this->setFixedSize(this->size());
   } 
 }

@@ -1,11 +1,11 @@
 #include <QApplication>
 #include "boardModel.hpp"
 #include "BoardWindow.hpp"
+#include "NewGameWindow.hpp"
 
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
-  BoardModel model(10,10,10);
-  BoardWindow mWindow(NULL, 10,4);
+  BoardWindow boardWindow;
   return app.exec();
 }

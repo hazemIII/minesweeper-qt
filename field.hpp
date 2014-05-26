@@ -1,4 +1,5 @@
-
+#ifndef FIELD_HPP
+#define FIELD_HPP
 enum FieldStatus
 {
   POINT_CLEAR,
@@ -18,4 +19,4 @@ class Field
     void setStatus(FieldStatus status);
     void setMine(bool isMine);
 };
-
+#endif

@@ -1,3 +1,5 @@
+#ifndef BOARD_MODEL_HPP
+#define BOARD_MODEL_HPP
 #include <QList>
 #include <QPair>
 #include "field.hpp"
@@ -17,3 +19,4 @@ class BoardModel
     int numOfMines;
     int numOfExposedFields;
 };
+#endif

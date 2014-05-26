@@ -1,3 +1,6 @@
+#ifndef FIELD_BUTTON_HPP
+#define FIELD_BUTTON_HPP
+
 #include <QPushButton>
 #include <QMouseEvent>
 
@@ -12,3 +15,4 @@ class FieldButton : public QPushButton
     void mousePressEvent(QMouseEvent *e);
     //void mouseReleaseEvent(QMouseEvent *e);
 };
+#endif

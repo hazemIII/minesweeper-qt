@@ -1,3 +1,6 @@
+#ifndef NEW_GAME_WINDOW_HPP
+#define NEW_GAME_WINDOW_HPP
+
 #include "ui_NewGameWindow.h"
 
 class NewGameWindow : public QDialog
@@ -18,3 +21,4 @@ class NewGameWindow : public QDialog
     void on_beginnerButton_toggled(bool state);
     void on_advancedButton_toggled(bool state);
 };
+#endif
