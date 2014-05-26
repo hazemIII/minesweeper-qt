@@ -1,0 +1,5 @@
+saper
+Makefile
+*.pyc
+ui*
+moc*
