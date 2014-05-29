@@ -14,7 +14,7 @@ void Field::setStatus(FieldStatus status)
 
 unsigned char Field::countNumOfMinesAround()
 {
-  return 5;
+  return 0;
 }
 
 void Field::setMine(bool isMine)

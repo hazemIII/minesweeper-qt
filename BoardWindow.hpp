@@ -2,7 +2,6 @@
 #define BOARD_WINDOW_HPP
 
 #include <QMainWindow>
-#include "FieldButton.hpp"
 #include <QPushButton>
 #include <QGridLayout>
 #include <QVBoxLayout>
@@ -14,7 +13,10 @@
 #include <QMenu>
 #include <QAction>
 #include <QMessageBox>
+#include <QTimer>
 #include "NewGameWindow.hpp"
+#include "FieldButton.hpp"
+#include "boardModel.hpp"
 
 class BoardWindow : public QMainWindow
 {
@@ -25,19 +27,25 @@ class BoardWindow : public QMainWindow
     QHBoxLayout *upperLayout;
     QGridLayout *boardLayout;
     QLCDNumber *timeWidget;
-    FieldButton button;
     QPushButton asd;
     NewGameWindow dial;
     QList<QList<FieldButton*> > buttons;
     QAction *newGameAction;
+    QTimer *timer;
+    BoardModel *model;
 
   public:
     BoardWindow(QWidget *parent = 0);
     ~BoardWindow();
     void deleteButtons();
-    void prepareButtons(unsigned int height, unsigned int width);
+    void prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines);
 
   private slots:
     void newGame();
+    void updateTime();
+    void updateTile(int x, int y, bool mine, int around);
+
+  signals:
+    void bClicked(QObject*);
 };
 #endif

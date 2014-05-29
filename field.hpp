@@ -10,13 +10,13 @@ enum FieldStatus
 class Field
 {
   private:
-    bool isMine;
     FieldStatus status;
-    unsigned char numOfMinesAround;
     unsigned char countNumOfMinesAround();
   public:
     Field();
+    bool isMine;
     void setStatus(FieldStatus status);
     void setMine(bool isMine);
+    unsigned char numOfMinesAround;
 };
 #endif
