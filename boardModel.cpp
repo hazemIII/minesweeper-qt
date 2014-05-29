@@ -45,20 +45,46 @@ void BoardModel::fill()
           for (unsigned int j = 0; j<width; j++)
           {
             std::cout << (unsigned int) fields[i][j]->numOfMinesAround << (unsigned int) fields[i][j]->isMine<<" ";
-            emit utile(i,j, fields[i][j]->isMine, fields[i][j]->numOfMinesAround);
+            //emit utile(i,j, fields[i][j]->isMine, fields[i][j]->numOfMinesAround, false);
           }
           std::cout << std::endl;
         }
 }
 
 void BoardModel::revealField(int x, int y)
-{
+{ 
+  if (x >-1 && x < height && y > -1 && y < width)
+  {
+    qDebug() << "REVEAL"  << x << "  " << y;
+    if (fields[x][y]->isMine)
+    {
+      qDebug() << fields[x][y];
+      return;
+    }
+    if (fields[x][y]->status==POINT_DISCOVERED) return;  // już odkryte wyjście
 
+    if(!(fields[x][y]->isMine) && fields[x][y]->status!=POINT_DISCOVERED)
+    fields[x][y]->setStatus(POINT_DISCOVERED);   // odkryj!
+    emit utile(x,y, fields[x][y]->isMine, fields[x][y]->numOfMinesAround, true);
+
+    if (fields[x][y]->numOfMinesAround!=0) return; // wartość > 0 wyjście
+
+    //wywołanie funkcji dla każdego sąsiada
+    revealField(x-1,y-1);
+    revealField(x-1,y);
+    revealField(x-1,y+1);
+    revealField(x+1,y-1);
+    revealField(x+1,y);
+    revealField(x+1,y+1);
+    revealField(x,y-1);
+    revealField(x,y);
+    revealField(x,y+1);
+  }
 }
 
 void BoardModel::fieldClicked(int x, int y)
 {
-  qDebug() << x << "  " << y;
+  revealField(x,y);
 
 }
 

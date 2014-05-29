@@ -8,12 +8,12 @@ class FieldButton : public QPushButton
 {
   Q_OBJECT
   private:
-    unsigned int state;
     int x;
     int y;
-    int minesAround;
   public:
     FieldButton(unsigned int x, unsigned int y, QWidget *parent = 0);
+    unsigned int state;
+    int minesAround;
   protected:
     void mousePressEvent(QMouseEvent *e);
     //void mouseReleaseEvent(QMouseEvent *e);

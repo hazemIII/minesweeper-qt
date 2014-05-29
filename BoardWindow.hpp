@@ -43,7 +43,7 @@ class BoardWindow : public QMainWindow
   private slots:
     void newGame();
     void updateTime();
-    void updateTile(int x, int y, bool mine, int around);
+    void updateTile(int x, int y, bool mine, int around, bool checked);
 
   signals:
     void bClicked(QObject*);

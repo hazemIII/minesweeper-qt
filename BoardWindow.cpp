@@ -46,7 +46,7 @@ BoardWindow::BoardWindow(QWidget *parent)
 void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines)
 {
   model = new BoardModel(height, width, numOfMines);
-  connect(model, SIGNAL(utile(int, int, bool, int)), this, SLOT(updateTile(int, int, bool ,int)));
+  connect(model, SIGNAL(utile(int, int, bool, int, bool)), this, SLOT(updateTile(int, int, bool ,int, bool)));
   for (unsigned int i = 0; i<height; i++)
   {
     QList<FieldButton*> tmp;
@@ -111,7 +111,7 @@ void BoardWindow::updateTime()
 }
 
 
-void BoardWindow::updateTile(int x, int y, bool mine, int around)
+void BoardWindow::updateTile(int x, int y, bool mine, int around, bool checked)
 {  
   if (around != 0)
   {
@@ -121,4 +121,5 @@ void BoardWindow::updateTile(int x, int y, bool mine, int around)
   {
     buttons[x][y]->setText("$");
   }
+  buttons[x][y]->setChecked(checked);
 }

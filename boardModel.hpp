@@ -27,7 +27,7 @@ class BoardModel : public QObject
 
   signals:
     void setMinesAround(int x, int y, int mines);
-    void utile(int x, int y, bool mine, int around);
+    void utile(int x, int y, bool mine, int around, bool checked);
   public slots:
     void fieldClicked(int x, int y);
 };
