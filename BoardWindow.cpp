@@ -31,7 +31,6 @@ BoardWindow::BoardWindow(QWidget *parent)
   centralWidget->setLayout(mainLayout);
   if (dial.exec())
   {
-    qDebug() << "numm" << dial.numOfMines;
     prepareButtons(dial.height,dial.width, dial.numOfMines);
     show();
     timer->start(1000);
@@ -45,7 +44,7 @@ BoardWindow::BoardWindow(QWidget *parent)
 
 void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines)
 {
-  model = new BoardModel(height, width, numOfMines);
+  model = new BoardModel(height, width, numOfMines, this);
   connect(model, SIGNAL(utile(int, int, bool, int, bool)), this, SLOT(updateTile(int, int, bool ,int, bool)));
   for (unsigned int i = 0; i<height; i++)
   {
@@ -56,7 +55,8 @@ void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsign
       button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
       tmp.append(button);
       boardLayout->addWidget(button, i, j);
-        connect(button, SIGNAL(KLIK(int, int)), model, SLOT(fieldClicked(int, int)));
+      connect(button, SIGNAL(leftClick(int, int)), model, SLOT(revealField(int, int)));
+      connect(button, SIGNAL(rightClick(int, int)), model, SLOT(flagField(int, int)));
       this->adjustSize();
     }
     buttons.append(tmp);
@@ -122,4 +122,33 @@ void BoardWindow::updateTile(int x, int y, bool mine, int around, bool checked)
     buttons[x][y]->setText("$");
   }
   buttons[x][y]->setChecked(checked);
+}
+
+void BoardWindow::endGame()
+{
+  QPair<int, int> pair;
+  foreach (pair , model->bombTiles)
+  {
+
+    buttons[pair.first][pair.second]->setIcon(QIcon("/tmp/bomb.gif"));
+    buttons[pair.first ][pair.second]->setIconSize(buttons[pair.first][pair.second]->size());
+  }
+  for (int i = 0; i<model->height; i++)
+  {
+    for (int j = 0; j< model->width; j++)
+    {
+      buttons[i][j]->setEnabled(false);
+    }
+  }
+  timer->stop();
+ QMessageBox msgBox;
+ msgBox.setText("The document has been modified.");
+ msgBox.exec();
+
+}
+
+void BoardWindow::UTILE(int x, int y, int mines)
+{
+  buttons[x][y]->setText(mines>0?QString::number(mines):" ");
+  buttons[x][y]->setChecked(true);
 }

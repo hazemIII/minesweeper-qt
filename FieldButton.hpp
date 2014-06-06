@@ -18,7 +18,8 @@ class FieldButton : public QPushButton
     void mousePressEvent(QMouseEvent *e);
     //void mouseReleaseEvent(QMouseEvent *e);
   signals:
-    void KLIK(int, int);
+    void leftClick(int, int);
+    void rightClick(int, int);
 };
 
 enum 

@@ -1,23 +1,50 @@
 #include "field.hpp"
 #include <QDebug>
 
-Field::Field() : isMine(false), status(POINT_CLEAR)
+Field::Field(int x, int y) : x(x), y(y), numOfMinesAround(0), discovered(false)
 {
-  numOfMinesAround = countNumOfMinesAround();
+}
+
+
+void Field::revealField()
+{
+}
+
+
+BombField::BombField(int x, int y): Field(x,y)
+{
 
 }
 
-void Field::setStatus(FieldStatus status)
+void BombField::revealField()
 {
-  this->status = status;
+  emit endGame();
 }
 
-unsigned char Field::countNumOfMinesAround()
+
+EmptyField::EmptyField(int x, int y): Field(x,y)
 {
-  return 0;
+
 }
 
-void Field::setMine(bool isMine)
+void EmptyField::revealField()
 {
-  this->isMine = isMine;
+  if (!discovered)
+  {
+  this->discovered = true;
+  emit revealField(x, y);
+  emit UTILE(x, y, numOfMinesAround);
+  if (numOfMinesAround == 0)
+  {
+    for (int i=x-1; i<= x+1; i++)
+    {
+      for (int j = y-1; j<= y+1; j++)
+      {
+        emit revealField(i, j);
+      }
+    }
+  }
 }
+
+}
+

@@ -1,5 +1,6 @@
 #ifndef FIELD_HPP
 #define FIELD_HPP
+#include <QObject>
 enum FieldStatus
 {
   POINT_CLEAR,
@@ -7,16 +8,46 @@ enum FieldStatus
   POINT_DISCOVERED
 };
 
-class Field
+class Field : public QObject
 {
-  private:
-    unsigned char countNumOfMinesAround();
+  Q_OBJECT
+  protected:
+    int x;
+    int y;
   public:
-    Field();
-    FieldStatus status;
-    bool isMine;
-    void setStatus(FieldStatus status);
-    void setMine(bool isMine);
-    unsigned char numOfMinesAround;
+    Field(int x, int y);
+    virtual void revealField();
+    int numOfMinesAround;
+    bool discovered;
+
+  signals:
+    void revealFields(int x, int y);
+    void utile(int x, int y, bool mine, int around, bool checked);
 };
+
+class BombField : public Field
+{
+  Q_OBJECT
+
+  public:
+    BombField(int x, int y);
+    void revealField();
+  signals:
+    void revealField(int x, int y);
+    void endGame();
+
+};
+
+class EmptyField : public Field
+{
+  Q_OBJECT
+
+  public:
+    EmptyField(int x, int y);
+    void revealField();
+  signals:
+    void revealField(int x, int y);
+    void UTILE(int, int, int);
+};
+
 #endif

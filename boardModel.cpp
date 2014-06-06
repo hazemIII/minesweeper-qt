@@ -1,24 +1,15 @@
 #include "boardModel.hpp"
 #include <QDebug>
+#include <QPair>
 #include <iostream>
-BoardModel::BoardModel(unsigned int height, unsigned int width, int numOfMines) 
+BoardModel::BoardModel(unsigned int height, unsigned int width, int numOfMines, QObject *parent) 
 {
   srand(time(NULL));
+  this->parent = parent;
   this->height = height;
   this->width = width;
   this->numOfMines = numOfMines;
-  numOfExposedFields = 0;
   fields.reserve(height);
-  for (unsigned int i = 0; i<height; i++)
-  {
-    QList<Field*> tmp;
-
-    for (unsigned int j = 0; j<width; j++)
-    {
-      tmp.append(new Field());
-    }
-    fields.append(tmp);
-  }
 }
 
 BoardModel::~BoardModel()
@@ -28,83 +19,85 @@ BoardModel::~BoardModel()
 
 void BoardModel::fill()
 {
-  qDebug() << "NIM" <<numOfMines;
   for (int i = 0; i < numOfMines; i++)
   {
-    fields[rand()%height][rand()%width]->setMine(true);
+    bombTiles.append(QPair<int, int>(rand() % height, rand() % width));
   }
-  for (unsigned int i = 0; i<height; i++)
+  qDebug() << "serialize" << bombTiles;
+  for (int i = 0; i < height; i++)
   {
-    for (unsigned int j = 0; j<width; j++)
+    QList<Field*> tmp;
+    for (int j = 0; j < width; j++)
     {
-      calculateMine(i,j);
+      Field *f = NULL;
+      if ( bombTiles.contains(QPair<int, int>(i, j)))
+      {
+        f = new BombField(i, j);
+        connect(f, SIGNAL(endGame()), parent, SLOT(endGame()));
+      }
+      else 
+      {
+        f = new EmptyField(i, j);
+        connect(f, SIGNAL(UTILE(int, int, int)), parent, SLOT(UTILE(int, int, int)));
+      }
+      connect(f, SIGNAL(revealField(int, int)), this, SLOT(revealField(int, int)));
+      tmp.append(f);
     }
+    fields.append(tmp);
   }
-        for (unsigned int i = 0; i<height; i++)
-        {
-          for (unsigned int j = 0; j<width; j++)
-          {
-            std::cout << (unsigned int) fields[i][j]->numOfMinesAround << (unsigned int) fields[i][j]->isMine<<" ";
-            //emit utile(i,j, fields[i][j]->isMine, fields[i][j]->numOfMinesAround, false);
-          }
-          std::cout << std::endl;
-        }
+  calculateAround();
 }
 
 void BoardModel::revealField(int x, int y)
 { 
   if (x >-1 && x < height && y > -1 && y < width)
   {
-    qDebug() << "REVEAL"  << x << "  " << y;
-    if (fields[x][y]->isMine)
-    {
-      qDebug() << fields[x][y];
-      return;
-    }
-    if (fields[x][y]->status==POINT_DISCOVERED) return;  // już odkryte wyjście
-
-    if(!(fields[x][y]->isMine) && fields[x][y]->status!=POINT_DISCOVERED)
-    fields[x][y]->setStatus(POINT_DISCOVERED);   // odkryj!
-    emit utile(x,y, fields[x][y]->isMine, fields[x][y]->numOfMinesAround, true);
-
-    if (fields[x][y]->numOfMinesAround!=0) return; // wartość > 0 wyjście
-
-    //wywołanie funkcji dla każdego sąsiada
-    revealField(x-1,y-1);
-    revealField(x-1,y);
-    revealField(x-1,y+1);
-    revealField(x+1,y-1);
-    revealField(x+1,y);
-    revealField(x+1,y+1);
-    revealField(x,y-1);
-    revealField(x,y);
-    revealField(x,y+1);
+    qDebug() << fields[x][y]->metaObject()->className();
+    fields[x][y]->revealField();
+    //emit utile(x,y, false, fields[x][y]->numOfMinesAround, true);
   }
 }
-
 void BoardModel::fieldClicked(int x, int y)
 {
-  revealField(x,y);
+    fields[x][y]->revealField();
+}
+
+
+void BoardModel::flagField(int x, int y)
+{
 
 }
 
-void BoardModel::calculateMine(int x, int y)
+
+void BoardModel::calculateAround()
 {
-  if (fields[x][y]->isMine)
+  for (int x= 0; x < height; x++)
   {
-    for (int i = x-1; i<=x+1; i++)
+    for (int y = 0; y < width; y++)
     {
-      for (int j = y-1; j<=y+1; j++)
+      if (bombTiles.contains(QPair<int, int>(x,y)))
       {
-        qDebug() << i << "  "<<j;
-          if (i >-1 && i < height && j > -1 && j < width)
+        for (int i = x-1; i<=x+1; i++)
+        {
+          for (int j = y-1; j<=y+1; j++)
           {
-          if(!fields[i][j]->isMine)
-          {
-            (fields[i][j]->numOfMinesAround)++;
+            if (i >-1 && i < height && j > -1 && j < width)
+            {
+              (fields[i][j]->numOfMinesAround)++;
+            }
           }
-          }
+        }
       }
     }
   }
+
+  for (int i = 0; i< height; i++)
+  {
+    for (int j = 0; j<width; j++)
+    {
+      std::cout << fields[i][j]->numOfMinesAround << " ";
+    }
+    std::cout << "\n";
+  }
+
 }
