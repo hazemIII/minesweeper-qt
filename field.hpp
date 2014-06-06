@@ -19,10 +19,12 @@ class Field : public QObject
     virtual void revealField();
     int numOfMinesAround;
     bool discovered;
+    void flagField();
 
   signals:
     void revealFields(int x, int y);
     void utile(int x, int y, bool mine, int around, bool checked);
+    void flagField(int x, int y);
 };
 
 class BombField : public Field

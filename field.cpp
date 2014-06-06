@@ -10,6 +10,11 @@ void Field::revealField()
 {
 }
 
+void Field::flagField()
+{
+
+  qDebug()<< "flagField";
+}
 
 BombField::BombField(int x, int y): Field(x,y)
 {

@@ -52,7 +52,6 @@ void BoardModel::revealField(int x, int y)
 { 
   if (x >-1 && x < height && y > -1 && y < width)
   {
-    qDebug() << fields[x][y]->metaObject()->className();
     fields[x][y]->revealField();
     //emit utile(x,y, false, fields[x][y]->numOfMinesAround, true);
   }
@@ -65,30 +64,27 @@ void BoardModel::fieldClicked(int x, int y)
 
 void BoardModel::flagField(int x, int y)
 {
-
+  fields[x][y]->flagField();
 }
 
 
 void BoardModel::calculateAround()
 {
-  for (int x= 0; x < height; x++)
+  QPair<int, int> pair;
+  foreach (pair, bombTiles)
   {
-    for (int y = 0; y < width; y++)
-    {
-      if (bombTiles.contains(QPair<int, int>(x,y)))
-      {
-        for (int i = x-1; i<=x+1; i++)
+        for (int i = pair.first-1; i<=pair.first+1; i++)
         {
-          for (int j = y-1; j<=y+1; j++)
+          for (int j = pair.second-1; j<=pair.second+1; j++)
           {
+            qDebug() << fields[0];
+            qDebug() << i << j;
             if (i >-1 && i < height && j > -1 && j < width)
             {
               (fields[i][j]->numOfMinesAround)++;
             }
           }
         }
-      }
-    }
   }
 
   for (int i = 0; i< height; i++)
