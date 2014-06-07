@@ -41,6 +41,7 @@ void BoardModel::fill()
         connect(f, SIGNAL(UTILE(int, int, int)), parent, SLOT(UTILE(int, int, int)));
       }
       connect(f, SIGNAL(revealField(int, int)), this, SLOT(revealField(int, int)));
+      connect(f, SIGNAL(flagField(int, int, bool)), parent, SLOT(sendFlagField(int, int, bool)));
       tmp.append(f);
     }
     fields.append(tmp);

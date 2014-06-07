@@ -1,7 +1,7 @@
 #include "field.hpp"
 #include <QDebug>
 
-Field::Field(int x, int y) : x(x), y(y), numOfMinesAround(0), discovered(false)
+Field::Field(int x, int y) : x(x), y(y), numOfMinesAround(0), discovered(false), flagged(false)
 {
 }
 
@@ -13,7 +13,11 @@ void Field::revealField()
 void Field::flagField()
 {
 
-  qDebug()<< "flagField";
+  if (!discovered)
+  {
+    emit flagField(x, y, !flagged);
+    flagged = !flagged;
+  }
 }
 
 BombField::BombField(int x, int y): Field(x,y)
@@ -34,7 +38,7 @@ EmptyField::EmptyField(int x, int y): Field(x,y)
 
 void EmptyField::revealField()
 {
-  if (!discovered)
+  if (!discovered && !flagged)
   {
   this->discovered = true;
   emit revealField(x, y);

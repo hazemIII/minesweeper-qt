@@ -14,6 +14,7 @@ class Field : public QObject
   protected:
     int x;
     int y;
+    bool flagged;
   public:
     Field(int x, int y);
     virtual void revealField();
@@ -24,7 +25,7 @@ class Field : public QObject
   signals:
     void revealFields(int x, int y);
     void utile(int x, int y, bool mine, int around, bool checked);
-    void flagField(int x, int y);
+    void flagField(int x, int y, bool flagged);
 };
 
 class BombField : public Field

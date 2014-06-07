@@ -46,6 +46,7 @@ class BoardWindow : public QMainWindow
     void updateTile(int x, int y, bool mine, int around, bool checked);
     void endGame();
     void UTILE(int x, int y, int mines);
+    void sendFlagField(int x, int y, bool flagged);
 
   signals:
     void bClicked(QObject*);

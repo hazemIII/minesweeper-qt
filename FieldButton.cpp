@@ -2,7 +2,6 @@
 
 FieldButton::FieldButton(unsigned int x, unsigned int y, QWidget *parent)
 {
-  this->state = 0;
   this->x = x;
   this->y = y;
   this->setFixedSize(15,15);
@@ -18,5 +17,17 @@ void FieldButton::mousePressEvent(QMouseEvent *e)
   } else if (e->button() == Qt::RightButton)
   {
     emit rightClick(x, y);
+  }
+}
+
+void FieldButton::flagField(bool flagged)
+{
+  if (flagged)
+  {
+  this->setIcon(QIcon("/tmp/flag.gif"));
+  this->setIconSize(this->size());
+  } else
+  {
+    this->setIcon(QIcon());
   }
 }

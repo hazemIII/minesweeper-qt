@@ -46,6 +46,7 @@ void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsign
 {
   model = new BoardModel(height, width, numOfMines, this);
   connect(model, SIGNAL(utile(int, int, bool, int, bool)), this, SLOT(updateTile(int, int, bool ,int, bool)));
+  connect(model, SIGNAL(flagField(int, int, bool)), this, SLOT(sendFlagField(int, int, bool)));
   for (unsigned int i = 0; i<height; i++)
   {
     QList<FieldButton*> tmp;
@@ -151,4 +152,9 @@ void BoardWindow::UTILE(int x, int y, int mines)
 {
   buttons[x][y]->setText(mines>0?QString::number(mines):" ");
   buttons[x][y]->setChecked(true);
+}
+
+void BoardWindow::sendFlagField(int x, int y, bool flagged)
+{
+  buttons[x][y]->flagField(flagged);
 }
