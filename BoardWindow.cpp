@@ -148,6 +148,15 @@ void BoardWindow::endGame()
 
 }
 
+void BoardWindow::wonGame()
+{
+  qDebug() << "ASD";
+  //timer->stop();
+  //QMessageBox msgBox;
+  //msgBox.setText("The document has been modified.");
+  //msgBox.exec();
+}
+
 void BoardWindow::UTILE(int x, int y, int mines)
 {
   buttons[x][y]->setText(mines>0?QString::number(mines):" ");

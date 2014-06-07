@@ -30,9 +30,11 @@ class BoardModel : public QObject
   signals:
     void setMinesAround(int x, int y, int mines);
     void utile(int x, int y, bool mine, int around, bool checked);
+    void wonGame();
   public slots:
     void revealField(int x, int y);
     void flagField(int x, int y);
     void fieldClicked(int x, int y);
+    void addToDiscoveredFields();
 };
 #endif

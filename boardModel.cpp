@@ -9,6 +9,7 @@ BoardModel::BoardModel(unsigned int height, unsigned int width, int numOfMines, 
   this->height = height;
   this->width = width;
   this->numOfMines = numOfMines;
+  this->numOfExposedFields = 0;
   fields.reserve(height);
 }
 
@@ -34,6 +35,7 @@ void BoardModel::fill()
       {
         f = new BombField(i, j);
         connect(f, SIGNAL(endGame()), parent, SLOT(endGame()));
+        connect(this, SIGNAL(wonGame()), parent, SLOT(wonGame()));
       }
       else 
       {
@@ -42,6 +44,7 @@ void BoardModel::fill()
       }
       connect(f, SIGNAL(revealField(int, int)), this, SLOT(revealField(int, int)));
       connect(f, SIGNAL(flagField(int, int, bool)), parent, SLOT(sendFlagField(int, int, bool)));
+      connect(f, SIGNAL(addToDiscoveredFields()), this, SLOT(addToDiscoveredFields()));
       tmp.append(f);
     }
     fields.append(tmp);
@@ -54,7 +57,6 @@ void BoardModel::revealField(int x, int y)
   if (x >-1 && x < height && y > -1 && y < width)
   {
     fields[x][y]->revealField();
-    //emit utile(x,y, false, fields[x][y]->numOfMinesAround, true);
   }
 }
 void BoardModel::fieldClicked(int x, int y)
@@ -78,8 +80,6 @@ void BoardModel::calculateAround()
         {
           for (int j = pair.second-1; j<=pair.second+1; j++)
           {
-            qDebug() << fields[0];
-            qDebug() << i << j;
             if (i >-1 && i < height && j > -1 && j < width)
             {
               (fields[i][j]->numOfMinesAround)++;
@@ -96,5 +96,13 @@ void BoardModel::calculateAround()
     }
     std::cout << "\n";
   }
+}
 
+void BoardModel::addToDiscoveredFields()
+{
+  numOfExposedFields++;
+  if ((height*width)-numOfExposedFields == numOfMines)
+  {
+    emit wonGame();
+  }
 }

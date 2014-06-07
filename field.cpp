@@ -43,6 +43,7 @@ void EmptyField::revealField()
   this->discovered = true;
   emit revealField(x, y);
   emit UTILE(x, y, numOfMinesAround);
+  emit addToDiscoveredFields();
   if (numOfMinesAround == 0)
   {
     for (int i=x-1; i<= x+1; i++)
@@ -54,6 +55,5 @@ void EmptyField::revealField()
     }
   }
 }
-
 }
 

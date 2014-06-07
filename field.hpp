@@ -26,6 +26,7 @@ class Field : public QObject
     void revealFields(int x, int y);
     void utile(int x, int y, bool mine, int around, bool checked);
     void flagField(int x, int y, bool flagged);
+    void addToDiscoveredFields();
 };
 
 class BombField : public Field
