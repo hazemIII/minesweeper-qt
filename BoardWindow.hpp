@@ -51,5 +51,7 @@ class BoardWindow : public QMainWindow
   signals:
     void bClicked(QObject*);
     void newGame();
+    void leftClick(int, int);
+    void rightClick(int, int);
 };
 #endif

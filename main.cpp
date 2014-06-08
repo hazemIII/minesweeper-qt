@@ -1,11 +1,10 @@
 #include <QApplication>
 #include "boardModel.hpp"
-#include "MineSweeperApp.hpp"
-#include "NewGameWindow.hpp"
+#include "MainWindow.hpp"
 
 int main(int argc, char *argv[])
 {
   QApplication app(argc, argv);
-  MineSweeperApp msAPP;
+  MainWindow mWindow;
   return app.exec();
 }

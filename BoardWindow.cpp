@@ -8,10 +8,6 @@ BoardWindow::BoardWindow(int height, int width, int numOfMines, QObject *parent)
   newGameAction = this->menuBar()->addAction("Nowa gra");
   connect(newGameAction, SIGNAL(triggered()), this, SIGNAL(newGame()));
 
-  timer = new QTimer(this);
-  connect(timer, SIGNAL(timeout()), this, SLOT(updateTime()));
-
-
   centralWidget = new QWidget();
   this->setCentralWidget(centralWidget);
   this->timeWidget = new QLCDNumber(this);
@@ -37,9 +33,6 @@ BoardWindow::BoardWindow(int height, int width, int numOfMines, QObject *parent)
 
 void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines)
 {
-  model = new BoardModel(height, width, numOfMines, this);
-  connect(model, SIGNAL(utile(int, int, bool, int, bool)), this, SLOT(updateTile(int, int, bool ,int, bool)));
-  connect(model, SIGNAL(flagField(int, int, bool)), this, SLOT(sendFlagField(int, int, bool)));
   for (unsigned int i = 0; i<height; i++)
   {
     QList<FieldButton*> tmp;
@@ -49,8 +42,8 @@ void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsign
       button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
       tmp.append(button);
       boardLayout->addWidget(button, i, j);
-      connect(button, SIGNAL(leftClick(int, int)), model, SLOT(revealField(int, int)));
-      connect(button, SIGNAL(rightClick(int, int)), model, SLOT(flagField(int, int)));
+      connect(button, SIGNAL(leftClick(int, int)), model, SIGNAL(leftClick(int, int)));
+      connect(button, SIGNAL(rightClick(int, int)), model, SIGNAL(rightClick(int, int)));
       this->adjustSize();
     }
     buttons.append(tmp);
@@ -118,7 +111,6 @@ void BoardWindow::endGame()
       buttons[i][j]->setEnabled(false);
     }
   }
-  timer->stop();
  QMessageBox msgBox;
  msgBox.setText("The document has been modified.");
  msgBox.exec();

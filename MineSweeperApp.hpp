@@ -9,7 +9,6 @@ class MineSweeperApp : public QObject
 {
   Q_OBJECT
   private:
-    NewGameWindow ngWindow;
     Game *game;
 
   public:
