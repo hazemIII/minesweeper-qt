@@ -35,13 +35,12 @@ class BoardWindow : public QMainWindow
     BoardModel *model;
 
   public:
-    BoardWindow(QWidget *parent = 0);
+    BoardWindow(int height, int width, int numOfMines, QObject *parent = 0);
     ~BoardWindow();
     void deleteButtons();
     void prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines);
 
   private slots:
-    void newGame();
     void updateTime();
     void updateTile(int x, int y, bool mine, int around, bool checked);
     void endGame();
@@ -51,5 +50,6 @@ class BoardWindow : public QMainWindow
 
   signals:
     void bClicked(QObject*);
+    void newGame();
 };
 #endif

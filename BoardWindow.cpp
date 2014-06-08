@@ -3,10 +3,10 @@
 #include <QSizePolicy>
 #include <QString>
 
-BoardWindow::BoardWindow(QWidget *parent)
+BoardWindow::BoardWindow(int height, int width, int numOfMines, QObject *parent)
 {
   newGameAction = this->menuBar()->addAction("Nowa gra");
-  connect(newGameAction, SIGNAL(triggered()), this, SLOT(newGame()));
+  connect(newGameAction, SIGNAL(triggered()), this, SIGNAL(newGame()));
 
   timer = new QTimer(this);
   connect(timer, SIGNAL(timeout()), this, SLOT(updateTime()));
@@ -29,17 +29,10 @@ BoardWindow::BoardWindow(QWidget *parent)
   mainLayout->addLayout(upperLayout);
   mainLayout->addLayout(boardLayout);
   centralWidget->setLayout(mainLayout);
-  if (dial.exec())
-  {
-    prepareButtons(dial.height,dial.width, dial.numOfMines);
-    show();
-    timer->start(1000);
-    this->resize(30,30);
-    this->setFixedSize(this->size());
-  } else
-  {
-      QApplication::quit();
-  }
+  prepareButtons(height,width, numOfMines);
+  show();
+  this->resize(30,30);
+  this->setFixedSize(this->size());
 }
 
 void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines)
@@ -89,22 +82,6 @@ BoardWindow::~BoardWindow()
   delete timeWidget;
 }
 
-void BoardWindow::newGame()
-{
-  timer->stop();
-  if (dial.exec())
-  {
-    hide();
-    deleteButtons();
-    prepareButtons(dial.height,dial.width, dial.numOfMines);
-    setMaximumSize(QWIDGETSIZE_MAX,QWIDGETSIZE_MAX); setMinimumSize(0,0);
-    timeWidget->display(0);
-    show();
-    this->resize(30,30);
-    this->setFixedSize(this->size());
-  } 
-  timer->start(1000);
-}
 
 void BoardWindow::updateTime()
 {
@@ -128,7 +105,7 @@ void BoardWindow::updateTile(int x, int y, bool mine, int around, bool checked)
 void BoardWindow::endGame()
 {
   QPair<int, int> pair;
-  foreach (pair , model->bombTiles)
+  for(QPair<int, int> pair: model->bombTiles)
   {
 
     buttons[pair.first][pair.second]->setIcon(QIcon("/tmp/bomb.gif"));

@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include "BoardWindow.hpp"
+#include "boardModel.hpp"
 
 class Game : public QObject
 {
@@ -12,10 +13,15 @@ class Game : public QObject
     QTimer timer;
     int seconds;
     BoardWindow *gameWindow;
+    BoardModel *model;
+    QObject *parent;
 
   public:
-    Game(BoardWindow *gameWindow);
+    Game(int x, int y, int numOfMines, QObject *parent);
     ~Game();
+
+  signals:
+    void newGame();
 
 };
 

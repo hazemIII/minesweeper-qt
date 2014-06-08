@@ -10,7 +10,7 @@ class NewGameWindow : public QDialog
   public:
     NewGameWindow(QWidget *parent = 0, Qt::WindowFlags f = 0);
     ~NewGameWindow();
-  int height, width, numOfMines;
+    int height, width, numOfMines;
 
   private:
     Ui::Dialog ui;
