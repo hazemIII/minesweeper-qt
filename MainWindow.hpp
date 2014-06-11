@@ -6,6 +6,8 @@
 #include <QGridLayout>
 #include <QPushButton>
 
+#include "MineSweeperApp.hpp"
+
 class MainWindow: public QMainWindow
 {
   Q_OBJECT
@@ -15,6 +17,7 @@ class MainWindow: public QMainWindow
     QGridLayout *layout;
     QPushButton *newGameButton;
     QPushButton *databaseButton;
+    MineSweeperApp *app;
 
   public:
     MainWindow();

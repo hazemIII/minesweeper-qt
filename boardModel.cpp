@@ -20,36 +20,36 @@ BoardModel::~BoardModel()
 
 void BoardModel::fill()
 {
-  for (int i = 0; i < numOfMines; i++)
-  {
-    bombTiles.append(QPair<int, int>(rand() % height, rand() % width));
-  }
+  //for (int i = 0; i < numOfMines; i++)
+  //{
+    //bombTiles.append(QPair<int, int>(rand() % height, rand() % width));
+  //}
   qDebug() << "serialize" << bombTiles;
-  for (int i = 0; i < height; i++)
-  {
-    QList<Field*> tmp;
-    for (int j = 0; j < width; j++)
-    {
-      Field *f = NULL;
-      if ( bombTiles.contains(QPair<int, int>(i, j)))
-      {
-        f = new BombField(i, j);
-        connect(f, SIGNAL(endGame()), parent, SLOT(endGame()));
-        connect(this, SIGNAL(wonGame()), parent, SLOT(wonGame()));
-      }
-      else 
-      {
-        f = new EmptyField(i, j);
-        connect(f, SIGNAL(UTILE(int, int, int)), parent, SLOT(UTILE(int, int, int)));
-      }
-      connect(f, SIGNAL(revealField(int, int)), this, SLOT(revealField(int, int)));
-      connect(f, SIGNAL(flagField(int, int, bool)), parent, SLOT(sendFlagField(int, int, bool)));
-      connect(f, SIGNAL(addToDiscoveredFields()), this, SLOT(addToDiscoveredFields()));
-      tmp.append(f);
-    }
-    fields.append(tmp);
-  }
-  calculateAround();
+  //for (int i = 0; i < height; i++)
+  //{
+    //QList<Field*> tmp;
+    //for (int j = 0; j < width; j++)
+    //{
+      //Field *f = NULL;
+      //if ( bombTiles.contains(QPair<int, int>(i, j)))
+      //{
+        //f = new BombField(i, j);
+        //connect(f, SIGNAL(endGame()), parent, SLOT(endGame()));
+        //connect(this, SIGNAL(wonGame()), parent, SLOT(wonGame()));
+      //}
+      //else 
+      //{
+        //f = new EmptyField(i, j);
+        //connect(f, SIGNAL(UTILE(int, int, int)), parent, SLOT(UTILE(int, int, int)));
+      //}
+      //connect(f, SIGNAL(revealField(int, int)), this, SLOT(revealField(int, int)));
+      //connect(f, SIGNAL(flagField(int, int, bool)), parent, SLOT(sendFlagField(int, int, bool)));
+      //connect(f, SIGNAL(addToDiscoveredFields()), this, SLOT(addToDiscoveredFields()));
+      //tmp.append(f);
+    //}
+    //fields.append(tmp);
+  //}
+  //calculateAround();
 }
 
 void BoardModel::revealField(int x, int y)

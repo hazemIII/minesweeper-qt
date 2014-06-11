@@ -42,15 +42,15 @@ void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsign
       button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
       tmp.append(button);
       boardLayout->addWidget(button, i, j);
-      connect(button, SIGNAL(leftClick(int, int)), model, SIGNAL(leftClick(int, int)));
-      connect(button, SIGNAL(rightClick(int, int)), model, SIGNAL(rightClick(int, int)));
+      //connect(button, SIGNAL(leftClick(int, int)), model, SIGNAL(leftClick(int, int)));
+      //connect(button, SIGNAL(rightClick(int, int)), model, SIGNAL(rightClick(int, int)));
       this->adjustSize();
     }
     buttons.append(tmp);
   }
   boardLayout->setSpacing(0);
   boardLayout->setMargin(0);
-  model->fill();
+  //model->fill();
 }
 
 void BoardWindow::deleteButtons()
@@ -98,19 +98,19 @@ void BoardWindow::updateTile(int x, int y, bool mine, int around, bool checked)
 void BoardWindow::endGame()
 {
   QPair<int, int> pair;
-  for(QPair<int, int> pair: model->bombTiles)
-  {
+  //for(QPair<int, int> pair: model->bombTiles)
+  //{
 
-    buttons[pair.first][pair.second]->setIcon(QIcon("/tmp/bomb.gif"));
-    buttons[pair.first ][pair.second]->setIconSize(buttons[pair.first][pair.second]->size());
-  }
-  for (int i = 0; i<model->height; i++)
-  {
-    for (int j = 0; j< model->width; j++)
-    {
-      buttons[i][j]->setEnabled(false);
-    }
-  }
+    //buttons[pair.first][pair.second]->setIcon(QIcon("/tmp/bomb.gif"));
+    //buttons[pair.first ][pair.second]->setIconSize(buttons[pair.first][pair.second]->size());
+  //}
+  //for (int i = 0; i<model->height; i++)
+  //{
+    //for (int j = 0; j< model->width; j++)
+    //{
+      //buttons[i][j]->setEnabled(false);
+    //}
+  //}
  QMessageBox msgBox;
  msgBox.setText("The document has been modified.");
  msgBox.exec();

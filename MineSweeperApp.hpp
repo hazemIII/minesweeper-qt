@@ -10,11 +10,15 @@ class MineSweeperApp : public QObject
   Q_OBJECT
   private:
     Game *game;
+    NewGameWindow ngWindow;
 
   public:
     MineSweeperApp();
     ~MineSweeperApp();
   public slots:
     void newGame();
+
+signals:
+    void hideMainWindow();
 };
 #endif
