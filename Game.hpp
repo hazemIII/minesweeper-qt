@@ -22,6 +22,12 @@ class Game : public QObject
 
   signals:
     void newGame();
+    void leftClick(int, int);
+    void rightClick(int, int);
+    void flagField(int, int, bool);
+
+  public slots:
+    void endGame(bool won);
 
 };
 

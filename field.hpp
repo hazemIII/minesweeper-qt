@@ -38,7 +38,7 @@ class BombField : public Field
     void revealField();
   signals:
     void revealField(int x, int y);
-    void endGame();
+    void endGame(bool);
 
 };
 

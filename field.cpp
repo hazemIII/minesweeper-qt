@@ -27,9 +27,8 @@ BombField::BombField(int x, int y): Field(x,y)
 
 void BombField::revealField()
 {
-  emit endGame();
+  emit endGame(false);
 }
-
 
 EmptyField::EmptyField(int x, int y): Field(x,y)
 {

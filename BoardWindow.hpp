@@ -32,7 +32,7 @@ class BoardWindow : public QMainWindow
     QList<QList<FieldButton*> > buttons;
     QAction *newGameAction;
     QTimer *timer;
-    BoardModel *model;
+    QObject *parent;
 
   public:
     BoardWindow(int height, int width, int numOfMines, QObject *parent = 0);
@@ -40,10 +40,10 @@ class BoardWindow : public QMainWindow
     void deleteButtons();
     void prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines);
 
-  private slots:
+  public slots:
     void updateTime();
     void updateTile(int x, int y, bool mine, int around, bool checked);
-    void endGame();
+    void endGame(bool won);
     void UTILE(int x, int y, int mines);
     void sendFlagField(int x, int y, bool flagged);
     void wonGame();

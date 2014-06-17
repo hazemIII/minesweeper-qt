@@ -5,8 +5,9 @@
 
 BoardWindow::BoardWindow(int height, int width, int numOfMines, QObject *parent)
 {
+  this->parent = parent;
   newGameAction = this->menuBar()->addAction("Nowa gra");
-  connect(newGameAction, SIGNAL(triggered()), this, SIGNAL(newGame()));
+  connect(newGameAction, SIGNAL(triggered()), this, SLOT(newGame()));
 
   centralWidget = new QWidget();
   this->setCentralWidget(centralWidget);
@@ -42,8 +43,8 @@ void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsign
       button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
       tmp.append(button);
       boardLayout->addWidget(button, i, j);
-      //connect(button, SIGNAL(leftClick(int, int)), model, SIGNAL(leftClick(int, int)));
-      //connect(button, SIGNAL(rightClick(int, int)), model, SIGNAL(rightClick(int, int)));
+      connect(button, SIGNAL(leftClick(int, int)), this, SIGNAL(leftClick(int, int)));
+      connect(button, SIGNAL(rightClick(int, int)), this, SIGNAL(rightClick(int, int)));
       this->adjustSize();
     }
     buttons.append(tmp);
@@ -63,8 +64,6 @@ void BoardWindow::deleteButtons()
     }
   }
   buttons.clear();
-  delete model;
-  model = NULL;
 }
 
 BoardWindow::~BoardWindow()
@@ -95,35 +94,46 @@ void BoardWindow::updateTile(int x, int y, bool mine, int around, bool checked)
   buttons[x][y]->setChecked(checked);
 }
 
-void BoardWindow::endGame()
+void BoardWindow::endGame(bool won)
 {
-  QPair<int, int> pair;
+  //QPair<int, int> pair;
   //for(QPair<int, int> pair: model->bombTiles)
   //{
 
     //buttons[pair.first][pair.second]->setIcon(QIcon("/tmp/bomb.gif"));
     //buttons[pair.first ][pair.second]->setIconSize(buttons[pair.first][pair.second]->size());
   //}
-  //for (int i = 0; i<model->height; i++)
-  //{
-    //for (int j = 0; j< model->width; j++)
-    //{
-      //buttons[i][j]->setEnabled(false);
-    //}
-  //}
+  for (int i = 0; i<buttons.length(); i++)
+  {
+    for (int j = 0; j< buttons[0].length(); j++)
+    {
+      buttons[i][j]->setEnabled(false);
+    }
+  }
  QMessageBox msgBox;
- msgBox.setText("The document has been modified.");
+ if (won)
+ {
+   msgBox.setText("Wygrana");
+ } else
+ {
+   msgBox.setText("Przegana");
+ }
  msgBox.exec();
 
 }
 
 void BoardWindow::wonGame()
 {
-  qDebug() << "ASD";
-  //timer->stop();
-  //QMessageBox msgBox;
-  //msgBox.setText("The document has been modified.");
-  //msgBox.exec();
+  for (int i = 0; i<buttons.length(); i++)
+  {
+    for (int j = 0; j< buttons[0].length(); j++)
+    {
+      buttons[i][j]->setEnabled(false);
+    }
+  }
+  QMessageBox msgBox;
+  msgBox.setText("Wygrana!");
+  msgBox.exec();
 }
 
 void BoardWindow::UTILE(int x, int y, int mines)
