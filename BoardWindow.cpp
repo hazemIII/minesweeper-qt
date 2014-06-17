@@ -7,7 +7,7 @@ BoardWindow::BoardWindow(int height, int width, int numOfMines, QObject *parent)
 {
   this->parent = parent;
   newGameAction = this->menuBar()->addAction("Nowa gra");
-  connect(newGameAction, SIGNAL(triggered()), this, SLOT(newGame()));
+  connect(newGameAction, SIGNAL(triggered()), this, SIGNAL(newGame()));
 
   centralWidget = new QWidget();
   this->setCentralWidget(centralWidget);
