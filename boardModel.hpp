@@ -26,13 +26,14 @@ class BoardModel : public QObject
     int numOfExposedFields;
     void calculateAround();
     QVector<QPair<int, int> > bombTiles;
-    void showAllFlags();
+    void showAllBombs();
 
   signals:
     void winGameGame();
     void UTILE(int, int, int);
     void sendFlagField(int, int, bool);
     void endGame(bool);
+    void showBomb(int, int);
   public slots:
     void revealField(int x, int y);
     void flagField(int x, int y);

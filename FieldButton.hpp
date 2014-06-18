@@ -15,6 +15,7 @@ class FieldButton : public QPushButton
     unsigned int state;
     int minesAround;
     void flagField(bool flagged);
+    void showBomb();
   protected:
     void mousePressEvent(QMouseEvent *e);
     //void mouseReleaseEvent(QMouseEvent *e);

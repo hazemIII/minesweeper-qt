@@ -146,3 +146,8 @@ void BoardWindow::sendFlagField(int x, int y, bool flagged)
 {
   buttons[x][y]->flagField(flagged);
 }
+
+void BoardWindow::showBomb(int x, int y)
+{
+  buttons[x][y]->showBomb();
+}

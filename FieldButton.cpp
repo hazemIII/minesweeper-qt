@@ -1,5 +1,6 @@
 #include "FieldButton.hpp"
 
+#include <QDebug>
 FieldButton::FieldButton(unsigned int x, unsigned int y, QWidget *parent)
 {
   this->x = x;
@@ -22,12 +23,20 @@ void FieldButton::mousePressEvent(QMouseEvent *e)
 
 void FieldButton::flagField(bool flagged)
 {
+  qDebug() << "flagField";
   if (flagged)
   {
-  this->setIcon(QIcon("/tmp/flag.gif"));
+  this->setIcon(QIcon("flag.gif"));
   this->setIconSize(this->size());
   } else
   {
     this->setIcon(QIcon());
   }
+}
+
+void FieldButton::showBomb()
+{
+  qDebug() << "showBomb";
+  this->setIcon(QIcon("bomb.gif"));
+  this->setIconSize(this->size());
 }

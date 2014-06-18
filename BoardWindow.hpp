@@ -47,6 +47,7 @@ class BoardWindow : public QMainWindow
     void UTILE(int x, int y, int mines);
     void sendFlagField(int x, int y, bool flagged);
     void wonGame();
+    void showBomb(int x, int y);
 
   signals:
     void bClicked(QObject*);

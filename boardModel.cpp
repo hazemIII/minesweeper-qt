@@ -106,14 +106,15 @@ void BoardModel::addToDiscoveredFields()
   if ((height*width)-numOfExposedFields == numOfMines)
   {
     emit endGame(true);
-    showAllFlags();
+    showAllBombs();
   }
 }
 
-void BoardModel::showAllFlags()
+void BoardModel::showAllBombs()
 {
   for(QPair<int, int> pair: bombTiles)
   {
-    emit sendFlagField(pair.first, pair.second, true);
+    //emit sendFlagField(pair.first, pair.second, true);
+    emit showBomb(pair.first, pair.second);
   }
 }
