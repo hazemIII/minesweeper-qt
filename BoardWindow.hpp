@@ -45,7 +45,7 @@ class BoardWindow : public QMainWindow
   public slots:
     void updateTime();
     void UTILE(int x, int y, int mines);
-    void showBomb(int x, int y);
+    void bombField(int x, int y);
 
     void updateTile(int x, int y, int around, bool discovered);
     void flagField(int x, int y, bool flagged);

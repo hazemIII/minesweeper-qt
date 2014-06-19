@@ -97,7 +97,7 @@ void BoardWindow::UTILE(int x, int y, int mines)
 }
 
 
-void BoardWindow::showBomb(int x, int y)
+void BoardWindow::bombField(int x, int y)
 {
   buttons[x][y]->showBomb();
 }
@@ -109,13 +109,13 @@ void BoardWindow::flagField(int x, int y, bool flagged)
 
 void BoardWindow::endGame(bool won)
 {
-  for(QList<FieldButton*> tmp: buttons)
-  {
-    for (FieldButton *button: tmp)
-    {
-      button->setEnabled(false);
-    }
-  }
+  //for(QList<FieldButton*> tmp: buttons)
+  //{
+    //for (FieldButton *button: tmp)
+    //{
+      //button->setEnabled(false);
+    //}
+  //}
  QMessageBox msgBox;
  if (won)
  {

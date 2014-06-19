@@ -43,11 +43,11 @@ void BoardModel::fill()
       {
         f = new BombField(i, j);
         connect(f, SIGNAL(endGame(bool)), this, SIGNAL(endGame(bool)));
+        connect(f, SIGNAL(bombField(int, int)), view, SLOT(bombField(int, int)));
       }
       else 
       {
         f = new EmptyField(i, j);
-        connect(f, SIGNAL(UTILE(int, int, int)), this, SIGNAL(UTILE(int, int, int)));
         connect(f, SIGNAL(updateTile(int, int, int, bool)), view, SLOT(updateTile(int, int, int, bool)));
       }
       connect(f, SIGNAL(revealField(int, int)), this, SLOT(revealField(int, int)));
@@ -104,7 +104,6 @@ void BoardModel::addToDiscoveredFields()
   if ((height*width)-numOfExposedFields == numOfMines)
   {
     emit endGame(true);
-    showAllBombs();
   }
 }
 

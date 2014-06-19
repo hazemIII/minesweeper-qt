@@ -30,7 +30,7 @@ void Game::endGame(bool won)
   //{
     //gameWindow->showBomb(pair.first, pair.second);
   //}
-  //model->showAllBombs();
+  model->showAllBombs();
   //gameWindow->endGame(won);
 }
 

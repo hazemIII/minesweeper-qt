@@ -21,7 +21,7 @@ class Field : public QObject
     int numOfMinesAround;
     bool discovered;
     void flagField();
-    void showBomb();
+    virtual void showBomb();
 
   signals:
     void revealFields(int x, int y);
@@ -30,6 +30,7 @@ class Field : public QObject
     void addToDiscoveredFields();
 
     void updateTile(int, int, int, bool);
+    void bombField(int, int);
 };
 
 class BombField : public Field
