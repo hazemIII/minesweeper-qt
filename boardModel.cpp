@@ -72,18 +72,19 @@ void BoardModel::calculateAround(QVector<QPair<int, int> > bombTiles)
 {
   for(QPair<int, int> pair: bombTiles)
   {
-        for (int i = pair.first-1; i<=pair.first+1; i++)
+    for (int i = pair.first-1; i<=pair.first+1; i++)
+    {
+      for (int j = pair.second-1; j<=pair.second+1; j++)
+      {
+        if (i >-1 && i < height && j > -1 && j < width)
         {
-          for (int j = pair.second-1; j<=pair.second+1; j++)
-          {
-            if (i >-1 && i < height && j > -1 && j < width)
-            {
-              (fields[i][j]->numOfMinesAround)++;
-            }
-          }
+          (fields[i][j]->numOfMinesAround)++;
         }
+      }
+    }
   }
 
+#ifdef QT_DEBUG
   for (int i = 0; i< height; i++)
   {
     for (int j = 0; j<width; j++)
@@ -96,6 +97,7 @@ void BoardModel::calculateAround(QVector<QPair<int, int> > bombTiles)
     }
     std::cout << "\n";
   }
+#endif 
 }
 
 void BoardModel::addToDiscoveredFields()
@@ -117,7 +119,6 @@ void BoardModel::showAllBombs()
     }
   }
 }
-
 
 void BoardModel::leftClick(int x, int y)
 {
