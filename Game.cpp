@@ -24,10 +24,11 @@ Game::~Game()
 void Game::endGame(bool won)
 {
   timer.stop();
-  for (QPair <int, int> pair: model->bombTiles)
-  {
-    gameWindow->showBomb(pair.first, pair.second);
-  }
+  //for (QPair <int, int> pair: model->bombTiles)
+  //{
+    //gameWindow->showBomb(pair.first, pair.second);
+  //}
+  //model->showAllBombs();
   gameWindow->endGame(won);
 }
 

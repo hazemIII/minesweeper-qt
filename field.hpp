@@ -21,6 +21,7 @@ class Field : public QObject
     int numOfMinesAround;
     bool discovered;
     void flagField();
+    void showBomb();
 
   signals:
     void revealFields(int x, int y);
@@ -36,6 +37,7 @@ class BombField : public Field
   public:
     BombField(int x, int y);
     void revealField();
+    void showBomb();
   signals:
     void revealField(int x, int y);
     void endGame(bool);

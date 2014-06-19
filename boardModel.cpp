@@ -21,6 +21,7 @@ BoardModel::~BoardModel()
 
 void BoardModel::fill()
 {
+  QVector<QPair<int, int> > bombTiles;
   for (int i = 0; i < numOfMines; i++)
   {
     bombTiles.append(QPair<int, int>(rand() % height, rand() % width));
@@ -70,7 +71,7 @@ void BoardModel::flagField(int x, int y)
 }
 
 
-void BoardModel::calculateAround()
+void BoardModel::calculateAround(QVector<QPair<int, int> > bombTiles)
 {
   for(QPair<int, int> pair: bombTiles)
   {
@@ -112,9 +113,11 @@ void BoardModel::addToDiscoveredFields()
 
 void BoardModel::showAllBombs()
 {
-  for(QPair<int, int> pair: bombTiles)
+  for(int x = 0; x < height; x++)
   {
-    //emit sendFlagField(pair.first, pair.second, true);
-    emit showBomb(pair.first, pair.second);
+    for (int y = 0; y < width; y++)
+    {
+      fields[x][y]->showBomb()
+    }
   }
 }

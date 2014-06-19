@@ -24,8 +24,7 @@ class BoardModel : public QObject
     unsigned int height;
     int numOfMines;
     int numOfExposedFields;
-    void calculateAround();
-    QVector<QPair<int, int> > bombTiles;
+    void calculateAround(QVector<QPair<int, int> > bombTiles);
     void showAllBombs();
 
   signals:
