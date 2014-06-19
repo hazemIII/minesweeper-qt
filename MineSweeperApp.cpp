@@ -16,13 +16,10 @@ MineSweeperApp::~MineSweeperApp()
 
 void MineSweeperApp::newGame()
 {
-  qDebug() << "New Game";
-
   if (ngWindow.exec())
   {
     if (game != nullptr)
     {
-      qDebug() << "Nie nullptr";
       delete game;
     }
     game = new Game(ngWindow.height, ngWindow.width, ngWindow.numOfMines, this);

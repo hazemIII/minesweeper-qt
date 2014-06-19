@@ -22,6 +22,8 @@ void BoardModel::setView(QObject *view)
 {
   this->view = view;
   this->fill();
+  connect(this, SIGNAL(endGame(bool)), view, SLOT(endGame(bool)));
+  connect(this, SIGNAL(endGame(bool)), parent, SLOT(endGame(bool)));
 }
 
 void BoardModel::fill()
@@ -46,7 +48,6 @@ void BoardModel::fill()
       {
         f = new EmptyField(i, j);
         connect(f, SIGNAL(UTILE(int, int, int)), this, SIGNAL(UTILE(int, int, int)));
-        qDebug() << view;
         connect(f, SIGNAL(updateTile(int, int, int, bool)), view, SLOT(updateTile(int, int, int, bool)));
       }
       connect(f, SIGNAL(revealField(int, int)), this, SLOT(revealField(int, int)));
@@ -66,10 +67,6 @@ void BoardModel::revealField(int x, int y)
     fields[x][y]->revealField();
   }
 }
-
-
-
-
 
 void BoardModel::calculateAround(QVector<QPair<int, int> > bombTiles)
 {

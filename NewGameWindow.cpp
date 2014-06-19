@@ -19,7 +19,6 @@ NewGameWindow::~NewGameWindow()
 
 void NewGameWindow::checkValues()
 {
-  qDebug() << "checkValues";
   height = ui.heightBox->value();
   width = ui.widthBox->value();
   numOfMines = ui.numOfMinesBox->value();

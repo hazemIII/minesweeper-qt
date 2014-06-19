@@ -23,7 +23,6 @@ void FieldButton::mousePressEvent(QMouseEvent *e)
 
 void FieldButton::flagField(bool flagged)
 {
-  qDebug() << "flagField";
   if (flagged)
   {
   this->setIcon(QIcon("flag.gif"));
@@ -36,7 +35,6 @@ void FieldButton::flagField(bool flagged)
 
 void FieldButton::showBomb()
 {
-  qDebug() << "showBomb";
   this->setIcon(QIcon("bomb.gif"));
   this->setIconSize(this->size());
 }

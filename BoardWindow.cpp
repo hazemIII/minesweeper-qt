@@ -90,48 +90,6 @@ void BoardWindow::updateTile(int x, int y, int around, bool discovered)
   buttons[x][y]->updateTile(around, discovered);
 }
 
-void BoardWindow::endGame(bool won)
-{
-  //QPair<int, int> pair;
-  //for(QPair<int, int> pair: model->bombTiles)
-  //{
-
-    //buttons[pair.first][pair.second]->setIcon(QIcon("/tmp/bomb.gif"));
-    //buttons[pair.first ][pair.second]->setIconSize(buttons[pair.first][pair.second]->size());
-  //}
-  for (int i = 0; i<buttons.length(); i++)
-  {
-    for (int j = 0; j< buttons[0].length(); j++)
-    {
-      buttons[i][j]->setEnabled(false);
-    }
-  }
- QMessageBox msgBox;
- if (won)
- {
-   msgBox.setText("Wygrana");
- } else
- {
-   msgBox.setText("Przegana");
- }
- msgBox.exec();
-
-}
-
-void BoardWindow::wonGame()
-{
-  for (int i = 0; i<buttons.length(); i++)
-  {
-    for (int j = 0; j< buttons[0].length(); j++)
-    {
-      buttons[i][j]->setEnabled(false);
-    }
-  }
-  QMessageBox msgBox;
-  msgBox.setText("Wygrana!");
-  msgBox.exec();
-}
-
 void BoardWindow::UTILE(int x, int y, int mines)
 {
   buttons[x][y]->setText(mines>0?QString::number(mines):" ");
@@ -148,3 +106,24 @@ void BoardWindow::flagField(int x, int y, bool flagged)
 {
   buttons[x][y]->flagField(flagged);
 }
+
+void BoardWindow::endGame(bool won)
+{
+  for(QList<FieldButton*> tmp: buttons)
+  {
+    for (FieldButton *button: tmp)
+    {
+      button->setEnabled(false);
+    }
+  }
+ QMessageBox msgBox;
+ if (won)
+ {
+   msgBox.setText("Wygrana");
+ } else
+ {
+   msgBox.setText("Przegana");
+ }
+ msgBox.exec();
+}
+
