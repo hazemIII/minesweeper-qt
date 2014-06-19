@@ -4,6 +4,8 @@
 #include <QObject>
 #include "NewGameWindow.hpp"
 #include "Game.hpp"
+#include "DataBase.hpp"
+#include "PlayersWindow.hpp"
 
 class MineSweeperApp : public QObject
 {
@@ -11,6 +13,8 @@ class MineSweeperApp : public QObject
   private:
     Game *game;
     NewGameWindow ngWindow;
+    DataBase *db;
+    PlayersWindow winn;
 
   public:
     MineSweeperApp();

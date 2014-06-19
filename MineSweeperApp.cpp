@@ -4,6 +4,8 @@
 MineSweeperApp::MineSweeperApp() 
 {
   game = nullptr;
+  db = &(DataBase::getInstance());
+  winn.show();
 }
 
 MineSweeperApp::~MineSweeperApp()
