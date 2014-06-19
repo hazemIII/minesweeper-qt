@@ -49,7 +49,7 @@ void BoardModel::fill()
     }
     fields.append(tmp);
   }
-  calculateAround();
+  calculateAround(bombTiles);
 }
 
 void BoardModel::revealField(int x, int y)
@@ -117,7 +117,7 @@ void BoardModel::showAllBombs()
   {
     for (int y = 0; y < width; y++)
     {
-      fields[x][y]->showBomb()
+      fields[x][y]->showBomb();
     }
   }
 }

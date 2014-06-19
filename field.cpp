@@ -36,7 +36,6 @@ void BombField::revealField()
 
 void BombField::showBomb()
 {
-  emit showBomb(x, y);
 }
 
 EmptyField::EmptyField(int x, int y): Field(x,y)
