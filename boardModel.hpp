@@ -14,6 +14,7 @@ class BoardModel : public QObject
   private:
     QList<QList<Field*> > fields;
     QObject *parent;
+    QObject *view;
 
 
   public:
@@ -26,6 +27,7 @@ class BoardModel : public QObject
     int numOfExposedFields;
     void calculateAround(QVector<QPair<int, int> > bombTiles);
     void showAllBombs();
+    void setView(QObject *view);
 
   signals:
     void winGameGame();

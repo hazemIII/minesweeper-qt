@@ -26,7 +26,12 @@ BoardWindow::BoardWindow(int height, int width, int numOfMines, QObject *parent)
   mainLayout->addLayout(upperLayout);
   mainLayout->addLayout(boardLayout);
   centralWidget->setLayout(mainLayout);
-  prepareButtons(height,width, numOfMines);
+}
+
+void BoardWindow::setModel(BoardModel *model)
+{
+  this->model = model;
+  prepareButtons(model->height,model->width, model->numOfMines);
   show();
   this->resize(30,30);
   this->setFixedSize(this->size());

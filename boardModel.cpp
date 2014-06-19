@@ -19,6 +19,11 @@ BoardModel::~BoardModel()
 
 }
 
+void BoardModel::setView(QObject *view)
+{
+  this->view = view;
+}
+
 void BoardModel::fill()
 {
   QVector<QPair<int, int> > bombTiles;
@@ -121,3 +126,5 @@ void BoardModel::showAllBombs()
     }
   }
 }
+
+

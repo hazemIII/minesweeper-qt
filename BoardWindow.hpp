@@ -33,12 +33,14 @@ class BoardWindow : public QMainWindow
     QAction *newGameAction;
     QTimer *timer;
     QObject *parent;
+    BoardModel *model;
 
   public:
     BoardWindow(int height, int width, int numOfMines, QObject *parent = 0);
     ~BoardWindow();
     void deleteButtons();
     void prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines);
+    void setModel(BoardModel *model);
 
   public slots:
     void updateTime();
