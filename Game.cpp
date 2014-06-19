@@ -4,16 +4,16 @@
 Game::Game(int x, int y, int numOfMines, QObject *parent) : seconds(0)
 {
   timer.setInterval(1000);
-  this->gameWindow = new BoardWindow(x, y, numOfMines, this);
+  this->gameWindow = new BoardWindow(this);
   this->model = new BoardModel(x, y, numOfMines, this);
   gameWindow->setModel(model);
   model->setView(gameWindow);
   connect(gameWindow,SIGNAL(newGame()), parent, SLOT(newGame()));
   connect(&timer, SIGNAL(timeout()), gameWindow, SLOT(updateTime()));
-  connect(gameWindow, SIGNAL(leftClick(int, int)), model, SLOT(revealField(int, int)));
-  connect(model, SIGNAL(UTILE(int, int ,int)), gameWindow, SLOT(UTILE(int, int, int)));
-  connect(model, SIGNAL(endGame(bool)), this, SLOT(endGame(bool)));
-  connect(model, SIGNAL(showBomb(int, int)), gameWindow, SLOT(showBomb(int, int)));
+  //connect(gameWindow, SIGNAL(leftClick(int, int)), model, SLOT(revealField(int, int)));
+  //connect(model, SIGNAL(UTILE(int, int ,int)), gameWindow, SLOT(UTILE(int, int, int)));
+  //connect(model, SIGNAL(endGame(bool)), this, SLOT(endGame(bool)));
+  //connect(model, SIGNAL(showBomb(int, int)), gameWindow, SLOT(showBomb(int, int)));
   timer.start();
 }
 

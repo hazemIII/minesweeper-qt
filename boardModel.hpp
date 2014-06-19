@@ -35,10 +35,16 @@ class BoardModel : public QObject
     void sendFlagField(int, int, bool);
     void endGame(bool);
     void showBomb(int, int);
+
+    void updateTile(int, bool);
+
   public slots:
     void revealField(int x, int y);
     void flagField(int x, int y);
     void fieldClicked(int x, int y);
     void addToDiscoveredFields();
+
+    void leftClick(int x, int y);
+    void rightClick(int x, int y);
 };
 #endif

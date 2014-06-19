@@ -11,7 +11,6 @@ BoardModel::BoardModel(unsigned int height, unsigned int width, int numOfMines, 
   this->numOfMines = numOfMines;
   this->numOfExposedFields = 0;
   fields.reserve(height);
-  this->fill();
 }
 
 BoardModel::~BoardModel()
@@ -22,6 +21,7 @@ BoardModel::~BoardModel()
 void BoardModel::setView(QObject *view)
 {
   this->view = view;
+  this->fill();
 }
 
 void BoardModel::fill()
@@ -46,6 +46,8 @@ void BoardModel::fill()
       {
         f = new EmptyField(i, j);
         connect(f, SIGNAL(UTILE(int, int, int)), this, SIGNAL(UTILE(int, int, int)));
+        qDebug() << view;
+        connect(f, SIGNAL(updateTile(int, int, int, bool)), view, SLOT(updateTile(int, int, int, bool)));
       }
       connect(f, SIGNAL(revealField(int, int)), this, SLOT(revealField(int, int)));
       connect(f, SIGNAL(flagField(int, int, bool)), this, SIGNAL(sendFlagField(int, int, bool)));
@@ -128,3 +130,12 @@ void BoardModel::showAllBombs()
 }
 
 
+void BoardModel::leftClick(int x, int y)
+{
+  fields[x][y]->revealField();
+}
+
+void BoardModel::rightClick(int x, int y)
+{
+  fields[x][y]->revealField();
+}

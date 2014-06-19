@@ -36,7 +36,7 @@ class BoardWindow : public QMainWindow
     BoardModel *model;
 
   public:
-    BoardWindow(int height, int width, int numOfMines, QObject *parent = 0);
+    BoardWindow(QObject *parent = 0);
     ~BoardWindow();
     void deleteButtons();
     void prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines);
@@ -44,17 +44,18 @@ class BoardWindow : public QMainWindow
 
   public slots:
     void updateTime();
-    void updateTile(int x, int y, bool mine, int around, bool checked);
     void endGame(bool won);
     void UTILE(int x, int y, int mines);
     void sendFlagField(int x, int y, bool flagged);
     void wonGame();
     void showBomb(int x, int y);
 
+    void updateTile(int x, int y, int around, bool discovered);
   signals:
     void bClicked(QObject*);
     void newGame();
     void leftClick(int, int);
     void rightClick(int, int);
+
 };
 #endif

@@ -16,6 +16,8 @@ class FieldButton : public QPushButton
     int minesAround;
     void flagField(bool flagged);
     void showBomb();
+
+    void updateTile(int around, bool discovered);
   protected:
     void mousePressEvent(QMouseEvent *e);
     //void mouseReleaseEvent(QMouseEvent *e);

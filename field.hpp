@@ -28,6 +28,8 @@ class Field : public QObject
     void utile(int x, int y, bool mine, int around, bool checked);
     void flagField(int x, int y, bool flagged);
     void addToDiscoveredFields();
+
+    void updateTile(int, int, int, bool);
 };
 
 class BombField : public Field

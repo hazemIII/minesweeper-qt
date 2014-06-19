@@ -3,7 +3,7 @@
 #include <QSizePolicy>
 #include <QString>
 
-BoardWindow::BoardWindow(int height, int width, int numOfMines, QObject *parent)
+BoardWindow::BoardWindow(QObject *parent)
 {
   this->parent = parent;
   newGameAction = this->menuBar()->addAction("Nowa gra");
@@ -48,15 +48,14 @@ void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsign
       button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
       tmp.append(button);
       boardLayout->addWidget(button, i, j);
-      connect(button, SIGNAL(leftClick(int, int)), this, SIGNAL(leftClick(int, int)));
-      connect(button, SIGNAL(rightClick(int, int)), this, SIGNAL(rightClick(int, int)));
+      connect(button, SIGNAL(leftClick(int, int)), model, SLOT(leftClick(int, int)));
+      connect(button, SIGNAL(rightClick(int, int)), model, SLOT(rightClick(int, int)));
       this->adjustSize();
     }
     buttons.append(tmp);
   }
   boardLayout->setSpacing(0);
   boardLayout->setMargin(0);
-  //model->fill();
 }
 
 void BoardWindow::deleteButtons()
@@ -86,17 +85,9 @@ void BoardWindow::updateTime()
 }
 
 
-void BoardWindow::updateTile(int x, int y, bool mine, int around, bool checked)
+void BoardWindow::updateTile(int x, int y, int around, bool discovered)
 {  
-  if (around != 0)
-  {
-    buttons[x][y]->setText(QString::number(around));
-  }
-  if (mine)
-  {
-    buttons[x][y]->setText("$");
-  }
-  buttons[x][y]->setChecked(checked);
+  buttons[x][y]->updateTile(around, discovered);
 }
 
 void BoardWindow::endGame(bool won)

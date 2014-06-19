@@ -40,3 +40,19 @@ void FieldButton::showBomb()
   this->setIcon(QIcon("bomb.gif"));
   this->setIconSize(this->size());
 }
+
+void FieldButton::updateTile(int around, bool discovered)
+{
+  if (discovered)
+  {
+    if (around != 0)
+    {
+      setText(QString::number(around));
+    }
+  } else
+  {
+    setText("");
+  }
+  setChecked(discovered);
+
+}

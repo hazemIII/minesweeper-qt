@@ -48,6 +48,7 @@ void EmptyField::revealField()
   if (!discovered && !flagged)
   {
   this->discovered = true;
+  emit updateTile(x, y, numOfMinesAround, discovered);
   emit revealField(x, y);
   emit UTILE(x, y, numOfMinesAround);
   emit addToDiscoveredFields();
