@@ -22,6 +22,9 @@ PlayersWindow::PlayersWindow(QWidget *parent, Qt::WindowFlags f )
   model->setHeaderData(0, Qt::Horizontal, QObject::tr("Name"));
   model->setHeaderData(1, Qt::Horizontal, QObject::tr("NNumOfGames"));
   ui.view->setModel(model);
+  ui.view->setEditTriggers(QAbstractItemView::NoEditTriggers);
+  ui.view->resizeColumnsToContents();
+  ui.view->horizontalHeader()->setStretchLastSection(true);
 }
 
 PlayersWindow::~PlayersWindow()
