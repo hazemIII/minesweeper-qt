@@ -46,11 +46,11 @@ class BoardWindow : public QMainWindow
     void updateTime();
     void endGame(bool won);
     void UTILE(int x, int y, int mines);
-    void sendFlagField(int x, int y, bool flagged);
     void wonGame();
     void showBomb(int x, int y);
 
     void updateTile(int x, int y, int around, bool discovered);
+    void flagField(int x, int y, bool flagged);
   signals:
     void bClicked(QObject*);
     void newGame();

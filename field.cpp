@@ -16,11 +16,10 @@ void Field::revealField()
 
 void Field::flagField()
 {
-
   if (!discovered)
   {
-    emit flagField(x, y, !flagged);
     flagged = !flagged;
+    emit flagField(x, y, flagged);
   }
 }
 

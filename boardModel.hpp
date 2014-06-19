@@ -40,8 +40,6 @@ class BoardModel : public QObject
 
   public slots:
     void revealField(int x, int y);
-    void flagField(int x, int y);
-    void fieldClicked(int x, int y);
     void addToDiscoveredFields();
 
     void leftClick(int x, int y);
