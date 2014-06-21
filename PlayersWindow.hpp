@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QSqlTableModel>
+#include <QSqlRecord>
 #include "ui_Players.h"
 #include "DataBase.hpp"
 
@@ -21,6 +22,8 @@ class PlayersWindow : public QDialog
     QSqlTableModel *model;
   private slots:
     void on_addButton_clicked();
+    void on_deleteButton_clicked();
+    void adds(QModelIndex index);
     //void checkValues();
     //void on_addButton_clicked();
 };

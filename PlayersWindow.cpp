@@ -3,25 +3,24 @@
 
 #include <QSqlQueryModel>
 #include <QSqlQuery>
+#include <QSqlField>
 
 #include <QInputDialog>
 PlayersWindow::PlayersWindow(QWidget *parent, Qt::WindowFlags f )
 {
   db = &(DataBase::getInstance());
   ui.setupUi(this);
-  //QSqlQueryModel *modal = new QSqlQueryModel();
-  //QSqlQuery query(db->datab());
-  //query.prepare("select * from players");
-  //query.exec();
-  //modal->setQuery(query);
-  //ui.view->setModel(modal);
+  connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(adds(QModelIndex)));
+  ui.view->setSelectionMode(QAbstractItemView::SingleSelection);
+  ui.view->setSelectionBehavior(QAbstractItemView::SelectRows);
   model = new QSqlTableModel(this, db->datab());
   model->setTable("players");
   model->setEditStrategy(QSqlTableModel::OnManualSubmit);
   model->select();
-  model->setHeaderData(0, Qt::Horizontal, QObject::tr("Name"));
-  model->setHeaderData(1, Qt::Horizontal, QObject::tr("NNumOfGames"));
+  model->setHeaderData(1, Qt::Horizontal, QObject::tr("Nazwa Gracza"));
+  model->setHeaderData(2, Qt::Horizontal, QObject::tr("Ilość gier"));
   ui.view->setModel(model);
+  ui.view->setColumnHidden(0,true);
   ui.view->setEditTriggers(QAbstractItemView::NoEditTriggers);
   ui.view->resizeColumnsToContents();
   ui.view->horizontalHeader()->setStretchLastSection(true);
@@ -40,9 +39,27 @@ void PlayersWindow::on_addButton_clicked()
   if (ok && !text.isEmpty())
   {
     QSqlQuery query(db->datab());
-    query.prepare("insert into Players values (:name, 0)");
+    query.prepare("insert into Players values (NULL, :name, 0)");
     query.bindValue(":name", text);
     query.exec();
     model->select();
   }
+}
+
+void PlayersWindow::on_deleteButton_clicked()
+{
+  QItemSelectionModel *selectedModel = ui.view->selectionModel();
+  if(selectedModel->hasSelection()) {
+    model->removeRows(ui.view->currentIndex().row(),1);
+    model->submitAll();
+    model->select();
+  }
+  delete selectedModel;
+}
+
+void PlayersWindow::adds(QModelIndex index)
+{
+  qDebug() << index;
+  QSqlRecord req = model->record(index.row());
+  qDebug() << req.field("id").value();
 }
