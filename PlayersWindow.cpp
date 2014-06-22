@@ -8,13 +8,13 @@
 #include <QInputDialog>
 PlayersWindow::PlayersWindow(QWidget *parent, Qt::WindowFlags f )
 {
-  db = &(DataBase::getInstance());
+  db = DataBase::getInstance();
   ui.setupUi(this);
   //connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(adds(QModelIndex)));
   //connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SIGNAL(accepted()));
   ui.view->setSelectionMode(QAbstractItemView::SingleSelection);
   ui.view->setSelectionBehavior(QAbstractItemView::SelectRows);
-  model = new QSqlTableModel(this, db->datab());
+  model = new QSqlTableModel(this, db->dataBase());
   model->setTable("players");
   model->setEditStrategy(QSqlTableModel::OnManualSubmit);
   model->select();
@@ -39,7 +39,7 @@ void PlayersWindow::on_addButton_clicked()
   "Gracz", &ok);
   if (ok && !text.isEmpty())
   {
-    QSqlQuery query(db->datab());
+    QSqlQuery query(db->dataBase());
     query.prepare("insert into Players values (NULL, :name, 0)");
     query.bindValue(":name", text);
     query.exec();

@@ -4,7 +4,7 @@
 MineSweeperApp::MineSweeperApp() 
 {
   game = nullptr;
-  db = &(DataBase::getInstance());
+  db = DataBase::getInstance();
 }
 
 MineSweeperApp::~MineSweeperApp()

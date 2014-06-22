@@ -13,11 +13,11 @@ private:
   ~DataBase() {}
   QSqlDatabase db;
 public:
-  static DataBase& getInstance()
+  static DataBase* getInstance()
   {
     static DataBase instance;
-    return instance;
+    return &instance;
   }
-  QSqlDatabase datab();
+  QSqlDatabase dataBase();
 };
 #endif
