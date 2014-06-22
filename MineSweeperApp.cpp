@@ -5,7 +5,6 @@ MineSweeperApp::MineSweeperApp()
 {
   game = nullptr;
   db = &(DataBase::getInstance());
-  winn.show();
 }
 
 MineSweeperApp::~MineSweeperApp()
@@ -18,13 +17,15 @@ MineSweeperApp::~MineSweeperApp()
 
 void MineSweeperApp::newGame()
 {
+  if (playersWindow.exec())
+  {
   if (ngWindow.exec())
   {
     if (game != nullptr)
     {
       delete game;
     }
-    game = new Game(ngWindow.height, ngWindow.width, ngWindow.numOfMines, this);
+    game = new Game(ngWindow.height, ngWindow.width, ngWindow.numOfMines, playersWindow.playerId, this);
     emit hideMainWindow();
   } else
   {
@@ -32,6 +33,11 @@ void MineSweeperApp::newGame()
     {
       QApplication::quit();
     }
+  }
+  } else
+  {
+    QApplication::quit();
+    return;
   }
 }
 

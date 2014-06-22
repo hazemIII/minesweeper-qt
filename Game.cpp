@@ -1,7 +1,7 @@
 #include "Game.hpp"
 #include <QDebug>
 
-Game::Game(int x, int y, int numOfMines, QObject *parent) : seconds(0)
+Game::Game(int x, int y, int numOfMines, int playerId, QObject *parent) : seconds(0), playerId(playerId)
 {
   timer.setInterval(1000);
   this->gameWindow = new BoardWindow(this);

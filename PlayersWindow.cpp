@@ -10,7 +10,8 @@ PlayersWindow::PlayersWindow(QWidget *parent, Qt::WindowFlags f )
 {
   db = &(DataBase::getInstance());
   ui.setupUi(this);
-  connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(adds(QModelIndex)));
+  //connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(adds(QModelIndex)));
+  //connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SIGNAL(accepted()));
   ui.view->setSelectionMode(QAbstractItemView::SingleSelection);
   ui.view->setSelectionBehavior(QAbstractItemView::SelectRows);
   model = new QSqlTableModel(this, db->datab());
@@ -59,7 +60,19 @@ void PlayersWindow::on_deleteButton_clicked()
 
 void PlayersWindow::adds(QModelIndex index)
 {
+  emit accepted();
   qDebug() << index;
   QSqlRecord req = model->record(index.row());
   qDebug() << req.field("id").value();
+}
+
+void PlayersWindow::accept()
+{
+  QItemSelectionModel *selectedModel = ui.view->selectionModel();
+  qDebug() << selectedModel;
+  if(selectedModel->hasSelection()) {
+    QSqlRecord req = model->record(ui.view->currentIndex().row());
+    playerId = req.field("id").value().toInt();
+    QDialog::accept();
+  }
 }

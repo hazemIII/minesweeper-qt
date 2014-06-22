@@ -14,12 +14,14 @@ class PlayersWindow : public QDialog
   public:
     PlayersWindow(QWidget *parent = 0, Qt::WindowFlags f = 0);
     ~PlayersWindow();
+    int playerId;
     
 
   private:
     Ui::PlayersWin ui;
     DataBase *db;
     QSqlTableModel *model;
+    void accept();
   private slots:
     void on_addButton_clicked();
     void on_deleteButton_clicked();

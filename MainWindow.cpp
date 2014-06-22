@@ -21,7 +21,6 @@ MainWindow::~MainWindow()
   delete databaseButton;
   delete newGameButton;
   delete centralWidget;
-  delete layout;
   delete app;
 }
 

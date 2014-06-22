@@ -14,7 +14,7 @@ class MineSweeperApp : public QObject
     Game *game;
     NewGameWindow ngWindow;
     DataBase *db;
-    PlayersWindow winn;
+    PlayersWindow playersWindow;
 
   public:
     MineSweeperApp();

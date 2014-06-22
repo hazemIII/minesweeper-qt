@@ -15,9 +15,10 @@ class Game : public QObject
     BoardWindow *gameWindow;
     BoardModel *model;
     QObject *parent;
+    int playerId;
 
   public:
-    Game(int x, int y, int numOfMines, QObject *parent);
+    Game(int x, int y, int numOfMines, int playerId, QObject *parent);
     ~Game();
 
   signals:
