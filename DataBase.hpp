@@ -3,6 +3,7 @@
 
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QDateTime>
 
 class DataBase
 {
@@ -19,5 +20,6 @@ public:
     return &instance;
   }
   QSqlDatabase dataBase();
+  void addGame(int playerId, int time, int height, int width, int numOfBombs, QString bombs);
 };
 #endif

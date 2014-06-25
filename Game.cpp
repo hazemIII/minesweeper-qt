@@ -10,6 +10,7 @@ Game::Game(int x, int y, int numOfMines, int playerId, QObject *parent) : second
   model->setView(gameWindow);
   connect(gameWindow,SIGNAL(newGame()), parent, SLOT(newGame()));
   connect(&timer, SIGNAL(timeout()), gameWindow, SLOT(updateTime()));
+  connect(&timer, &QTimer::timeout, [=]() { this->seconds++; });
   //connect(gameWindow, SIGNAL(leftClick(int, int)), model, SLOT(revealField(int, int)));
   //connect(model, SIGNAL(UTILE(int, int ,int)), gameWindow, SLOT(UTILE(int, int, int)));
   //connect(model, SIGNAL(endGame(bool)), this, SLOT(endGame(bool)));
@@ -26,11 +27,10 @@ Game::~Game()
 void Game::endGame(bool won)
 {
   timer.stop();
-  //for (QPair <int, int> pair: model->bombTiles)
-  //{
-    //gameWindow->showBomb(pair.first, pair.second);
-  //}
+  DataBase *db = DataBase::getInstance();
+  db->addGame(playerId, seconds, model->height, model->width, model->numOfMines, model->serializeBombs());
+
+//void DataBase::addGame(int playerId, int time, int height, int width, int numOfBombs, QString bombs)
   model->showAllBombs();
-  //gameWindow->endGame(won);
 }
 

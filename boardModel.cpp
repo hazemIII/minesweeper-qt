@@ -28,11 +28,11 @@ void BoardModel::setView(QObject *view)
 
 void BoardModel::fill()
 {
-  QVector<QPair<int, int> > bombTiles;
   for (int i = 0; i < numOfMines; i++)
   {
     bombTiles.append(QPair<int, int>(rand() % height, rand() % width));
   }
+  qDebug() << this->serializeBombs();
   for (unsigned int i = 0; i < height; i++)
   {
     QList<Field*> tmp;
@@ -128,4 +128,14 @@ void BoardModel::leftClick(int x, int y)
 void BoardModel::rightClick(int x, int y)
 {
   fields[x][y]->flagField();
+}
+
+QString BoardModel::serializeBombs()
+{
+  QString result;
+  for(QPair<int, int> pair : bombTiles)
+  {
+    result.append(QString("%1:%2 ").arg(pair.first).arg(pair.second));
+  }
+  return result;
 }

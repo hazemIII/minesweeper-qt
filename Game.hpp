@@ -5,6 +5,7 @@
 #include <QTimer>
 #include "BoardWindow.hpp"
 #include "boardModel.hpp"
+#include "DataBase.hpp"
 
 class Game : public QObject
 {

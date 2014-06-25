@@ -15,6 +15,7 @@ class BoardModel : public QObject
     QList<QList<Field*> > fields;
     QObject *parent;
     QObject *view;
+  QVector<QPair<int, int> > bombTiles;
 
 
   public:
@@ -28,6 +29,7 @@ class BoardModel : public QObject
     void calculateAround(QVector<QPair<int, int> > bombTiles);
     void showAllBombs();
     void setView(QObject *view);
+    QString serializeBombs();
 
   signals:
     void winGameGame();

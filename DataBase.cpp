@@ -19,3 +19,21 @@ QSqlDatabase DataBase::dataBase()
 {
   return db;
 }
+
+void DataBase::addGame(int playerId, int time, int height, int width, int numOfBombs, QString bombs)
+{
+  QDateTime timestamp(QDateTime::currentDateTime());
+  QSqlQuery query(db);
+  query.prepare("INSERT INTO games VALUES (NULL, :id, :timestamp, :time, :height, :width, :numOfBombs, :bombs);");
+  query.bindValue(":id", playerId);
+  query.bindValue(":timestamp", timestamp.toString("HH:mm d/M/yy"));
+  query.bindValue(":time", time);
+  query.bindValue(":height", height);
+  query.bindValue(":width", width);
+  query.bindValue(":numOfBombs", numOfBombs);
+  query.bindValue(":bombs", bombs);
+  query.exec();
+  query.prepare("UPDATE players SET NumOfGames = NumOfGames + 1 WHERE id = ?");
+  query.bindValue(0, playerId);
+  query.exec();
+}
