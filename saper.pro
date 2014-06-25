@@ -18,10 +18,12 @@ HEADERS += boardModel.hpp \
            MainWindow.hpp \
            MineSweeperApp.hpp \
            NewGameWindow.hpp \
+           GamesWindow.hpp \
            PlayersWindow.hpp \
            ui_NewGameWindow.h \
+           ui_Games.h \
            ui_Players.h
-FORMS += NewGameWindow.ui Players.ui
+FORMS += NewGameWindow.ui Players.ui Games.ui
 SOURCES += boardModel.cpp \
            BoardWindow.cpp \
            DataBase.cpp \
@@ -32,4 +34,5 @@ SOURCES += boardModel.cpp \
            MainWindow.cpp \
            MineSweeperApp.cpp \
            NewGameWindow.cpp \
+           GamesWindow.cpp \
            PlayersWindow.cpp

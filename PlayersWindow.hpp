@@ -6,6 +6,7 @@
 #include <QSqlRecord>
 #include "ui_Players.h"
 #include "DataBase.hpp"
+#include "GamesWindow.hpp"
 
 class PlayersWindow : public QDialog
 {
@@ -21,6 +22,7 @@ class PlayersWindow : public QDialog
     Ui::PlayersWin ui;
     DataBase *db;
     QSqlTableModel *model;
+    GamesWindow *gamesWindow;
     void accept();
   private slots:
     void on_addButton_clicked();

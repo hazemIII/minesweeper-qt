@@ -8,9 +8,10 @@
 #include <QInputDialog>
 PlayersWindow::PlayersWindow(QWidget *parent, Qt::WindowFlags f )
 {
+  gamesWindow = nullptr;
   db = DataBase::getInstance();
   ui.setupUi(this);
-  //connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(adds(QModelIndex)));
+  connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(adds(QModelIndex)));
   //connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SIGNAL(accepted()));
   ui.view->setSelectionMode(QAbstractItemView::SingleSelection);
   ui.view->setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -29,7 +30,10 @@ PlayersWindow::PlayersWindow(QWidget *parent, Qt::WindowFlags f )
 
 PlayersWindow::~PlayersWindow()
 {
-
+  if (gamesWindow != nullptr)
+  {
+    delete gamesWindow;
+  }
 }
 
 void PlayersWindow::on_addButton_clicked()
@@ -64,6 +68,12 @@ void PlayersWindow::adds(QModelIndex index)
   qDebug() << index;
   QSqlRecord req = model->record(index.row());
   qDebug() << req.field("id").value();
+  if (gamesWindow != nullptr)
+  {
+    delete gamesWindow;
+  }
+  gamesWindow = new GamesWindow(req.field("id").value().toInt());
+  gamesWindow->exec();
 }
 
 void PlayersWindow::accept()
