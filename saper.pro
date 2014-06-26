@@ -20,6 +20,7 @@ HEADERS += boardModel.hpp \
            NewGameWindow.hpp \
            GamesWindow.hpp \
            PlayersWindow.hpp \
+           CheckBoxDelegate.hpp \
            ui_NewGameWindow.h \
            ui_Games.h \
            ui_Players.h
@@ -35,4 +36,5 @@ SOURCES += boardModel.cpp \
            MineSweeperApp.cpp \
            NewGameWindow.cpp \
            GamesWindow.cpp \
-           PlayersWindow.cpp
+           PlayersWindow.cpp \
+           CheckBoxDelegate.cpp 

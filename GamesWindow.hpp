@@ -8,6 +8,7 @@
 #include "DataBase.hpp"
 #include "BoardWindow.hpp"
 #include "boardModel.hpp"
+#include "CheckBoxDelegate.hpp"
 
 class GamesWindow : public QDialog
 {
