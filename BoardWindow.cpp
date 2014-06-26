@@ -99,6 +99,13 @@ BoardWindow::~BoardWindow()
     delete mainLayout;
     delete timeWidget;
   }
+  for(QList<FieldButton*> tmp: buttons)
+  {
+    for (FieldButton *button: tmp)
+    {
+      delete button;
+    }
+  }
 }
 
 
@@ -132,19 +139,19 @@ void BoardWindow::flagField(int x, int y, bool flagged)
 
 void BoardWindow::endGame(bool won)
 {
-  //for(QList<FieldButton*> tmp: buttons)
-  //{
-  //for (FieldButton *button: tmp)
-  //{
-  //button->setEnabled(false);
-  //}
-  //}
   QMessageBox msgBox;
   if (won)
   {
     msgBox.setText("Wygrana");
   } else
   {
+    for(QList<FieldButton*> tmp: buttons)
+    {
+      for (FieldButton *button: tmp)
+      {
+        button->setEnabled(false);
+      }
+    }
     msgBox.setText("Przegana");
   }
   msgBox.exec();
