@@ -21,7 +21,6 @@ class GamesWindow : public QDialog
   public:
     GamesWindow(int playerId, QWidget *parent = 0, Qt::WindowFlags f = 0);
     ~GamesWindow();
-    
 
   private:
     Ui::GamesWin ui;
@@ -29,10 +28,9 @@ class GamesWindow : public QDialog
     QSqlTableModel *model;
     BoardWindow *bWindow;
     BoardModel *bModel;
+
   private slots:
-    void adds(QModelIndex index);
-    //void checkValues();
-    //void on_addButton_clicked();
+    void showGame(QModelIndex index);
 };
 
 #endif

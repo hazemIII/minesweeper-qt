@@ -1,11 +1,12 @@
 #include "GamesWindow.hpp"
+
 GamesWindow::GamesWindow(int playerId, QWidget *parent, Qt::WindowFlags f )
 {
   bWindow = nullptr;
   bModel = nullptr;
   db = DataBase::getInstance();
   ui.setupUi(this);
-  connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(adds(QModelIndex)));
+  connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(showGame(QModelIndex)));
   ui.view->setSelectionMode(QAbstractItemView::SingleSelection);
   ui.view->setSelectionBehavior(QAbstractItemView::SelectRows);
   model = new QSqlTableModel(this, db->dataBase());
@@ -39,9 +40,8 @@ GamesWindow::~GamesWindow()
 }
 
 
-void GamesWindow::adds(QModelIndex index)
+void GamesWindow::showGame(QModelIndex index)
 {
-  emit accepted();
   QSqlRecord req = model->record(index.row());
   if (bWindow != nullptr)
   {

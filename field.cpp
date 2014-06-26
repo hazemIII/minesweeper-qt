@@ -1,6 +1,6 @@
 #include "field.hpp"
 
-Field::Field(int x, int y) : x(x), y(y), numOfMinesAround(0), flagged(false), discovered(false)
+Field::Field(int x, int y) : x(x), y(y), flagged(false), discovered(false), numOfMinesAround(0)
 {
 }
 

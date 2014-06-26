@@ -32,9 +32,7 @@ class PlayersWindow : public QDialog
   private slots:
     void on_addButton_clicked();
     void on_deleteButton_clicked();
-    void adds(QModelIndex index);
-    //void checkValues();
-    //void on_addButton_clicked();
+    void showGames(QModelIndex index);
 };
 
 #endif

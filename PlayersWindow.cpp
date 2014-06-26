@@ -5,7 +5,7 @@ PlayersWindow::PlayersWindow(QWidget *parent, Qt::WindowFlags f )
   gamesWindow = nullptr;
   db = DataBase::getInstance();
   ui.setupUi(this);
-  connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(adds(QModelIndex)));
+  connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(showGames(QModelIndex)));
   ui.view->setSelectionMode(QAbstractItemView::SingleSelection);
   ui.view->setSelectionBehavior(QAbstractItemView::SelectRows);
   model = new QSqlTableModel(this, db->dataBase());
@@ -55,7 +55,7 @@ void PlayersWindow::on_deleteButton_clicked()
   delete selectedModel;
 }
 
-void PlayersWindow::adds(QModelIndex index)
+void PlayersWindow::showGames(QModelIndex index)
 {
   emit accepted();
   QSqlRecord req = model->record(index.row());
