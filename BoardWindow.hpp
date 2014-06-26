@@ -35,7 +35,6 @@ class BoardWindow : public QMainWindow
   public:
     BoardWindow(bool game, QObject *parent = 0);
     ~BoardWindow();
-    void deleteButtons();
     void prepareButtons(int height, int width);
     void setModel(BoardModel *model);
 

@@ -57,6 +57,7 @@ void BoardWindow::prepareButtons(int height, int width)
     QList<FieldButton*> tmp;
     for (int j = 0; j<width; j++)
     {
+
       FieldButton *button = new FieldButton(i, j);
       button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
       tmp.append(button);
@@ -69,25 +70,6 @@ void BoardWindow::prepareButtons(int height, int width)
   }
   boardLayout->setSpacing(0);
   boardLayout->setMargin(0);
-}
-
-void BoardWindow::deleteButtons()
-{
-  for (QList<FieldButton*> tmp : buttons)
-  {
-    for (FieldButton *button : tmp)
-    {
-      delete button;
-    }
-  }
-  //for (int i = 0; i<buttons.size(); i++)
-  //{
-    //for (int j = 0; j<buttons[0].size(); j++)
-    //{
-      //delete buttons[i][j];
-    //}
-  //}
-  buttons.clear();
 }
 
 BoardWindow::~BoardWindow()

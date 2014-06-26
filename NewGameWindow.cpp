@@ -3,6 +3,7 @@
 NewGameWindow::NewGameWindow(QWidget *parent, Qt::WindowFlags f)
 {
   ui.setupUi(this);
+  ui.idiotButton->setEnabled(false);
   connect(ui.buttonBox, SIGNAL(accepted()), this, SLOT(checkValues()));
   connect(ui.heightBox, SIGNAL(valueChanged(int)), this, SLOT(setMaxMinesCount()));
   connect(ui.widthBox, SIGNAL(valueChanged(int)), this, SLOT(setMaxMinesCount()));
