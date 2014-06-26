@@ -52,6 +52,7 @@ void GamesWindow::adds(QModelIndex index)
   qDebug() << req.field("id").value();
   if (bWindow != nullptr)
   {
+    bWindow->hide();
     delete bWindow;
     delete bModel;
   }
@@ -64,6 +65,7 @@ void GamesWindow::adds(QModelIndex index)
   bModel = new BoardModel(height, width, bombs);
   bWindow->setModel(bModel);
   bModel->setView(bWindow);
+  bModel->revealAllFields();
 
 }
 

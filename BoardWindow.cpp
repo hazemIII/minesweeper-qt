@@ -30,6 +30,9 @@ BoardWindow::BoardWindow(QObject *parent)
 BoardWindow::BoardWindow(int height, int width, QString bombs, QObject *parent)
 {
   this->parent = parent;
+  this->upperLayout = nullptr;
+  this->mainLayout = nullptr;
+  this->timeWidget = nullptr;
 
   centralWidget = new QWidget();
   this->setCentralWidget(centralWidget);
@@ -90,9 +93,12 @@ void BoardWindow::deleteButtons()
 BoardWindow::~BoardWindow()
 {
   delete boardLayout;
-  delete upperLayout;
-  delete mainLayout;
-  delete timeWidget;
+  if (upperLayout != nullptr)
+  {
+    delete upperLayout;
+    delete mainLayout;
+    delete timeWidget;
+  }
 }
 
 
