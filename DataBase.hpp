@@ -20,6 +20,6 @@ public:
     return &instance;
   }
   QSqlDatabase dataBase();
-  void addGame(int playerId, int time, int height, int width, int numOfBombs, QString bombs);
+  void addGame(int playerId, bool won, int time, int height, int width, int numOfBombs, QString bombs);
 };
 #endif
