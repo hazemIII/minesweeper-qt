@@ -15,13 +15,17 @@ class BoardModel : public QObject
     QList<QList<Field*> > fields;
     QObject *parent;
     QObject *view;
-  QVector<QPair<int, int> > bombTiles;
+    QVector<QPair<int, int> > bombTiles;
 
 
   public:
-    BoardModel(unsigned int height, unsigned int width, int numOfMines, QObject *parent);
+    BoardModel(unsigned int height, unsigned int width, int numOfMines, QObject *parent = 0);
+    BoardModel(unsigned int height, unsigned int width, QString bombs, QObject *parent = 0);
     ~BoardModel();
+    void setBombs(QString bombs);
+    void setBombs(int numOfBombs);
     void fill();
+    void fill(QString bombs);
     unsigned int width;
     unsigned int height;
     int numOfMines;
@@ -30,6 +34,7 @@ class BoardModel : public QObject
     void showAllBombs();
     void setView(QObject *view);
     QString serializeBombs();
+    void revealAllFields();
 
   signals:
     void winGameGame();

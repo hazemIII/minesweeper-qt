@@ -14,11 +14,11 @@ BoardWindow::BoardWindow(QObject *parent)
   this->timeWidget = new QLCDNumber(this);
 
   mainLayout = new QVBoxLayout();
-  
+
   boardLayout = new QGridLayout();
   boardLayout->setHorizontalSpacing(0);
   boardLayout->setVerticalSpacing(0);
-  
+
   upperLayout = new QHBoxLayout();
   upperLayout->addStretch(1);
   upperLayout->addWidget(timeWidget);
@@ -27,6 +27,21 @@ BoardWindow::BoardWindow(QObject *parent)
   mainLayout->addLayout(boardLayout);
   centralWidget->setLayout(mainLayout);
 }
+BoardWindow::BoardWindow(int height, int width, QString bombs, QObject *parent)
+{
+  this->parent = parent;
+
+  centralWidget = new QWidget();
+  this->setCentralWidget(centralWidget);
+
+  boardLayout = new QGridLayout();
+  boardLayout->setHorizontalSpacing(0);
+  boardLayout->setVerticalSpacing(0);
+
+  centralWidget->setLayout(boardLayout);
+  qDebug() << "init";
+}
+
 
 void BoardWindow::setModel(BoardModel *model)
 {
@@ -35,10 +50,12 @@ void BoardWindow::setModel(BoardModel *model)
   show();
   this->resize(30,30);
   this->setFixedSize(this->size());
+  qDebug() << "setModel";
 }
 
 void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines)
 {
+  qDebug() << "prepareButtons" << height << width;
   for (unsigned int i = 0; i<height; i++)
   {
     QList<FieldButton*> tmp;
@@ -111,19 +128,19 @@ void BoardWindow::endGame(bool won)
 {
   //for(QList<FieldButton*> tmp: buttons)
   //{
-    //for (FieldButton *button: tmp)
-    //{
-      //button->setEnabled(false);
-    //}
+  //for (FieldButton *button: tmp)
+  //{
+  //button->setEnabled(false);
   //}
- QMessageBox msgBox;
- if (won)
- {
-   msgBox.setText("Wygrana");
- } else
- {
-   msgBox.setText("Przegana");
- }
- msgBox.exec();
+  //}
+  QMessageBox msgBox;
+  if (won)
+  {
+    msgBox.setText("Wygrana");
+  } else
+  {
+    msgBox.setText("Przegana");
+  }
+  msgBox.exec();
 }
 

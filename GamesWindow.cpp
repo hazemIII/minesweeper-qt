@@ -8,9 +8,11 @@
 #include <QInputDialog>
 GamesWindow::GamesWindow(int playerId, QWidget *parent, Qt::WindowFlags f )
 {
+  bWindow = nullptr;
+  bModel = nullptr;
   db = DataBase::getInstance();
   ui.setupUi(this);
-  //connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(adds(QModelIndex)));
+  connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(adds(QModelIndex)));
   ui.view->setSelectionMode(QAbstractItemView::SingleSelection);
   ui.view->setSelectionBehavior(QAbstractItemView::SelectRows);
   model = new QSqlTableModel(this, db->dataBase());
@@ -34,7 +36,11 @@ GamesWindow::GamesWindow(int playerId, QWidget *parent, Qt::WindowFlags f )
 
 GamesWindow::~GamesWindow()
 {
-
+  if (bWindow != nullptr)
+  {
+    delete bWindow;
+    delete bModel;
+  }
 }
 
 
@@ -44,5 +50,20 @@ void GamesWindow::adds(QModelIndex index)
   qDebug() << index;
   QSqlRecord req = model->record(index.row());
   qDebug() << req.field("id").value();
+  if (bWindow != nullptr)
+  {
+    delete bWindow;
+    delete bModel;
+  }
+  int height = req.field("height").value().toInt();
+  int width = req.field("width").value().toInt();
+  QString bombs = req.field("serializedBombs").value().toString();
+  qDebug() << bombs;
+
+  bWindow = new BoardWindow(height, width, bombs);
+  bModel = new BoardModel(height, width, bombs);
+  bWindow->setModel(bModel);
+  bModel->setView(bWindow);
+
 }
 

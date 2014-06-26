@@ -37,6 +37,7 @@ class BoardWindow : public QMainWindow
 
   public:
     BoardWindow(QObject *parent = 0);
+    BoardWindow(int height, int width, QString bombs, QObject *parent = 0);
     ~BoardWindow();
     void deleteButtons();
     void prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines);

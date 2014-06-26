@@ -38,6 +38,11 @@ void BombField::showBomb()
   emit bombField(x, y);
 }
 
+void BombField::showField()
+{
+  this->showBomb();
+}
+
 
 EmptyField::EmptyField(int x, int y): Field(x,y)
 {
@@ -65,3 +70,7 @@ void EmptyField::revealField()
 }
 }
 
+void EmptyField::showField()
+{
+  emit updateTile(x, y, numOfMinesAround, true);
+}

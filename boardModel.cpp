@@ -11,7 +11,19 @@ BoardModel::BoardModel(unsigned int height, unsigned int width, int numOfMines, 
   this->numOfMines = numOfMines;
   this->numOfExposedFields = 0;
   fields.reserve(height);
+  setBombs(numOfMines);
 }
+BoardModel::BoardModel(unsigned int height, unsigned int width, QString bombs, QObject *parent)
+{
+  this->parent = parent;
+  this->height = height;
+  this->width = width;
+  this->numOfMines = 0;
+  this->numOfExposedFields = 0;
+  setBombs(bombs);
+
+}
+
 
 BoardModel::~BoardModel()
 {
@@ -22,17 +34,63 @@ void BoardModel::setView(QObject *view)
 {
   this->view = view;
   this->fill();
-  connect(this, SIGNAL(endGame(bool)), view, SLOT(endGame(bool)));
-  connect(this, SIGNAL(endGame(bool)), parent, SLOT(endGame(bool)));
+  if ( parent != 0)
+  {
+    connect(this, SIGNAL(endGame(bool)), view, SLOT(endGame(bool)));
+    connect(this, SIGNAL(endGame(bool)), parent, SLOT(endGame(bool)));
+  }
 }
 
-void BoardModel::fill()
+void BoardModel::setBombs(QString bombs)
+{
+  QStringList tmp  = bombs.split(" ", QString::SkipEmptyParts);
+  for(QString coordinateString : tmp)
+  {
+    QStringList coordinates = coordinateString.split(":");
+    bombTiles.append(QPair<int, int>(coordinates[0].toInt(), coordinates[1].toInt()));
+  }
+}
+
+void BoardModel::setBombs(int numOfBombs)
 {
   for (int i = 0; i < numOfMines; i++)
   {
     bombTiles.append(QPair<int, int>(rand() % height, rand() % width));
   }
+}
+
+void BoardModel::fill()
+{
   qDebug() << this->serializeBombs();
+  for (unsigned int i = 0; i < height; i++)
+  {
+    QList<Field*> tmp;
+    for (unsigned int j = 0; j < width; j++)
+    {
+      Field *f = NULL;
+      if ( bombTiles.contains(QPair<int, int>(i, j)))
+      {
+        f = new BombField(i, j);
+        connect(f, SIGNAL(endGame(bool)), this, SIGNAL(endGame(bool)));
+        connect(f, SIGNAL(bombField(int, int)), view, SLOT(bombField(int, int)));
+      }
+      else 
+      {
+        f = new EmptyField(i, j);
+        connect(f, SIGNAL(updateTile(int, int, int, bool)), view, SLOT(updateTile(int, int, int, bool)));
+      }
+      connect(f, SIGNAL(revealField(int, int)), this, SLOT(revealField(int, int)));
+      connect(f, SIGNAL(flagField(int, int, bool)), view, SLOT(flagField(int, int, bool)));
+      connect(f, SIGNAL(addToDiscoveredFields()), this, SLOT(addToDiscoveredFields()));
+      tmp.append(f);
+    }
+    fields.append(tmp);
+  }
+  calculateAround(bombTiles);
+}
+
+void BoardModel::fill(QString bombs)
+{
   for (unsigned int i = 0; i < height; i++)
   {
     QList<Field*> tmp;
@@ -93,7 +151,7 @@ void BoardModel::calculateAround(QVector<QPair<int, int> > bombTiles)
       {
         std::cout <<"\033[35;1mB\033[0m" << " ";
       } else
-      std::cout << fields[i][j]->numOfMinesAround << " ";
+        std::cout << fields[i][j]->numOfMinesAround << " ";
     }
     std::cout << "\n";
   }
@@ -138,4 +196,15 @@ QString BoardModel::serializeBombs()
     result.append(QString("%1:%2 ").arg(pair.first).arg(pair.second));
   }
   return result;
+}
+
+void BoardModel::revealAllFields()
+{
+  for (QList<Field*> list : fields)
+  {
+    for (Field *field : list)
+    {
+      field->showField();
+    }
+  }
 }

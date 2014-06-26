@@ -22,6 +22,7 @@ class Field : public QObject
     bool discovered;
     void flagField();
     virtual void showBomb();
+    virtual void showField() {};
 
   signals:
     void revealFields(int x, int y);
@@ -41,6 +42,7 @@ class BombField : public Field
     BombField(int x, int y);
     void revealField();
     void showBomb();
+    void showField();
   signals:
     void revealField(int x, int y);
     void endGame(bool);
@@ -54,6 +56,7 @@ class EmptyField : public Field
   public:
     EmptyField(int x, int y);
     void revealField();
+    void showField();
   signals:
     void revealField(int x, int y);
     void UTILE(int, int, int);

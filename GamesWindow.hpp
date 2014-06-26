@@ -6,6 +6,8 @@
 #include <QSqlRecord>
 #include "ui_Games.h"
 #include "DataBase.hpp"
+#include "BoardWindow.hpp"
+#include "boardModel.hpp"
 
 class GamesWindow : public QDialog
 {
@@ -20,6 +22,8 @@ class GamesWindow : public QDialog
     Ui::GamesWin ui;
     DataBase *db;
     QSqlTableModel *model;
+    BoardWindow *bWindow;
+    BoardModel *bModel;
   private slots:
     void adds(QModelIndex index);
     //void checkValues();
