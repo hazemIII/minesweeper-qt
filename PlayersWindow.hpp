@@ -4,6 +4,10 @@
 #include <QDialog>
 #include <QSqlTableModel>
 #include <QSqlRecord>
+#include <QSqlQueryModel>
+#include <QSqlQuery>
+#include <QSqlField>
+#include <QInputDialog>
 #include "ui_Players.h"
 #include "DataBase.hpp"
 #include "GamesWindow.hpp"

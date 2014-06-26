@@ -1,5 +1,4 @@
 #include "DataBase.hpp"
-#include <QDebug>
 
 DataBase::DataBase()
 {

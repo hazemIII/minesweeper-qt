@@ -1,9 +1,4 @@
 #include "PlayersWindow.hpp"
-#include <QDebug>
-#include <QSqlQueryModel>
-#include <QSqlQuery>
-#include <QSqlField>
-#include <QInputDialog>
 
 PlayersWindow::PlayersWindow(QWidget *parent, Qt::WindowFlags f )
 {
@@ -63,9 +58,7 @@ void PlayersWindow::on_deleteButton_clicked()
 void PlayersWindow::adds(QModelIndex index)
 {
   emit accepted();
-  qDebug() << index;
   QSqlRecord req = model->record(index.row());
-  qDebug() << req.field("id").value();
   if (gamesWindow != nullptr)
   {
     delete gamesWindow;
@@ -77,7 +70,6 @@ void PlayersWindow::adds(QModelIndex index)
 void PlayersWindow::accept()
 {
   QItemSelectionModel *selectedModel = ui.view->selectionModel();
-  qDebug() << selectedModel;
   if(selectedModel->hasSelection()) {
     QSqlRecord req = model->record(ui.view->currentIndex().row());
     playerId = req.field("id").value().toInt();

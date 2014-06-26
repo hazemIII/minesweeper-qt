@@ -1,6 +1,5 @@
 #include "MineSweeperApp.hpp"
-#include <QDebug>
-// Kocham Sysię!
+
 MineSweeperApp::MineSweeperApp() 
 {
   game = nullptr;
@@ -25,6 +24,7 @@ void MineSweeperApp::newGame()
       delete game;
     }
     game = new Game(ngWindow.height, ngWindow.width, ngWindow.numOfMines, playersWindow.playerId, this);
+    connect(game, SIGNAL(showMainMenu), this, SIGNAL(showMainMenu));
     emit hideMainWindow();
   } else
   {
@@ -39,4 +39,12 @@ void MineSweeperApp::newGame()
 void MineSweeperApp::showDataBase()
 {
   playersWindow.exec();
+}
+
+void MineSweeperApp::deleteGame()
+{
+  if (game != nullptr)
+  {
+    delete game;
+  }
 }

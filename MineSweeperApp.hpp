@@ -21,8 +21,10 @@ class MineSweeperApp : public QObject
   public slots:
     void newGame();
     void showDataBase();
+    void deleteGame();
 
 signals:
     void hideMainWindow();
+    void showMainMenu();
 };
 #endif

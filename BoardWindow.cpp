@@ -1,70 +1,63 @@
 #include "BoardWindow.hpp"
-#include <QDebug>
 #include <QSizePolicy>
 #include <QString>
 
-BoardWindow::BoardWindow(QObject *parent)
+BoardWindow::BoardWindow(bool game, QObject *parent)
 {
   this->parent = parent;
-  newGameAction = this->menuBar()->addAction("Nowa gra");
-  connect(newGameAction, SIGNAL(triggered()), this, SIGNAL(newGame()));
-
   centralWidget = new QWidget();
   this->setCentralWidget(centralWidget);
-  this->timeWidget = new QLCDNumber(this);
-
-  mainLayout = new QVBoxLayout();
-
   boardLayout = new QGridLayout();
   boardLayout->setHorizontalSpacing(0);
   boardLayout->setVerticalSpacing(0);
+  if (game)
+  {
+    newGameAction = this->menuBar()->addAction("Menu główne");
+    connect(newGameAction, SIGNAL(triggered()), this, SIGNAL(showMainMenu()));
 
-  upperLayout = new QHBoxLayout();
-  upperLayout->addStretch(1);
-  upperLayout->addWidget(timeWidget);
+    this->timeWidget = new QLCDNumber(this);
 
-  mainLayout->addLayout(upperLayout);
-  mainLayout->addLayout(boardLayout);
-  centralWidget->setLayout(mainLayout);
-}
-BoardWindow::BoardWindow(int height, int width, QString bombs, QObject *parent)
-{
-  this->parent = parent;
-  this->upperLayout = nullptr;
-  this->mainLayout = nullptr;
-  this->timeWidget = nullptr;
+    mainLayout = new QVBoxLayout();
 
-  centralWidget = new QWidget();
-  this->setCentralWidget(centralWidget);
+    upperLayout = new QHBoxLayout();
+    upperLayout->addStretch(1);
+    upperLayout->addWidget(timeWidget);
 
-  boardLayout = new QGridLayout();
-  boardLayout->setHorizontalSpacing(0);
-  boardLayout->setVerticalSpacing(0);
+    mainLayout->addLayout(upperLayout);
+    mainLayout->addLayout(boardLayout);
+    centralWidget->setLayout(mainLayout);
+  } else
+  {
+    this->upperLayout = nullptr;
+    this->mainLayout = nullptr;
+    this->timeWidget = nullptr;
 
-  centralWidget->setLayout(boardLayout);
-  qDebug() << "init";
+    boardLayout = new QGridLayout();
+    boardLayout->setHorizontalSpacing(0);
+    boardLayout->setVerticalSpacing(0);
+
+    centralWidget->setLayout(boardLayout);
+  }
 }
 
 
 void BoardWindow::setModel(BoardModel *model)
 {
   this->model = model;
-  prepareButtons(model->height,model->width, model->numOfMines);
+  prepareButtons(model->height,model->width);
   show();
   this->resize(30,30);
   this->setFixedSize(this->size());
-  qDebug() << "setModel";
 }
 
-void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines)
+void BoardWindow::prepareButtons(int height, int width)
 {
-  qDebug() << "prepareButtons" << height << width;
-  for (unsigned int i = 0; i<height; i++)
+  for (int i = 0; i<height; i++)
   {
     QList<FieldButton*> tmp;
-    for (unsigned int j = 0; j<width; j++)
+    for (int j = 0; j<width; j++)
     {
-      FieldButton *button = new FieldButton(i, j, this);
+      FieldButton *button = new FieldButton(i, j);
       button->setSizePolicy(QSizePolicy::Minimum, QSizePolicy::Minimum);
       tmp.append(button);
       boardLayout->addWidget(button, i, j);
@@ -80,13 +73,20 @@ void BoardWindow::prepareButtons(unsigned int height, unsigned int width, unsign
 
 void BoardWindow::deleteButtons()
 {
-  for (unsigned int i = 0; i<buttons.size(); i++)
+  for (QList<FieldButton*> tmp : buttons)
   {
-    for (unsigned int j = 0; j<buttons[0].size(); j++)
+    for (FieldButton *button : tmp)
     {
-      delete buttons[i][j];
+      delete button;
     }
   }
+  //for (int i = 0; i<buttons.size(); i++)
+  //{
+    //for (int j = 0; j<buttons[0].size(); j++)
+    //{
+      //delete buttons[i][j];
+    //}
+  //}
   buttons.clear();
 }
 

@@ -1,7 +1,6 @@
 #include "field.hpp"
-#include <QDebug>
 
-Field::Field(int x, int y) : x(x), y(y), numOfMinesAround(0), discovered(false), flagged(false)
+Field::Field(int x, int y) : x(x), y(y), numOfMinesAround(0), flagged(false), discovered(false)
 {
 }
 

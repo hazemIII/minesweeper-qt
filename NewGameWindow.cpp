@@ -1,5 +1,4 @@
 #include "NewGameWindow.hpp"
-#include <QDebug>
 
 NewGameWindow::NewGameWindow(QWidget *parent, Qt::WindowFlags f)
 {

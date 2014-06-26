@@ -1,12 +1,6 @@
 #ifndef FIELD_HPP
 #define FIELD_HPP
 #include <QObject>
-enum FieldStatus
-{
-  POINT_CLEAR,
-  POINT_FLAGGED,
-  POINT_DISCOVERED
-};
 
 class Field : public QObject
 {
@@ -15,11 +9,11 @@ class Field : public QObject
     int x;
     int y;
     bool flagged;
+    bool discovered;
   public:
     Field(int x, int y);
-    virtual void revealField();
     int numOfMinesAround;
-    bool discovered;
+    virtual void revealField();
     void flagField();
     virtual void showBomb();
     virtual void showField() {};

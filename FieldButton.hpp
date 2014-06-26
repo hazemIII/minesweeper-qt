@@ -11,7 +11,7 @@ class FieldButton : public QPushButton
     int x;
     int y;
   public:
-    FieldButton(unsigned int x, unsigned int y, QWidget *parent = 0);
+    FieldButton(unsigned int x, unsigned int y);
     unsigned int state;
     int minesAround;
     void flagField(bool flagged);

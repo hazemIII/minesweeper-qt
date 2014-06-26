@@ -1,7 +1,6 @@
 #include "FieldButton.hpp"
 
-#include <QDebug>
-FieldButton::FieldButton(unsigned int x, unsigned int y, QWidget *parent)
+FieldButton::FieldButton(unsigned int x, unsigned int y)
 {
   this->x = x;
   this->y = y;

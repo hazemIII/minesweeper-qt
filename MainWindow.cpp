@@ -14,6 +14,7 @@ MainWindow::MainWindow()
   connect(newGameButton, SIGNAL(clicked()), app, SLOT(newGame()));
   connect(databaseButton, SIGNAL(clicked()), app, SLOT(showDataBase()));
   connect(app, SIGNAL(hideMainWindow()), this, SLOT(hide()));
+  connect(app, SIGNAL(showMainMenu()), this, SLOT(show()));
   this->show();
 }
 

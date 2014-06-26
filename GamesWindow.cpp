@@ -1,11 +1,4 @@
 #include "GamesWindow.hpp"
-#include <QDebug>
-
-#include <QSqlQueryModel>
-#include <QSqlQuery>
-#include <QSqlField>
-
-#include <QInputDialog>
 GamesWindow::GamesWindow(int playerId, QWidget *parent, Qt::WindowFlags f )
 {
   bWindow = nullptr;
@@ -49,9 +42,7 @@ GamesWindow::~GamesWindow()
 void GamesWindow::adds(QModelIndex index)
 {
   emit accepted();
-  qDebug() << index;
   QSqlRecord req = model->record(index.row());
-  qDebug() << req.field("id").value();
   if (bWindow != nullptr)
   {
     bWindow->hide();
@@ -61,9 +52,8 @@ void GamesWindow::adds(QModelIndex index)
   int height = req.field("height").value().toInt();
   int width = req.field("width").value().toInt();
   QString bombs = req.field("serializedBombs").value().toString();
-  qDebug() << bombs;
 
-  bWindow = new BoardWindow(height, width, bombs);
+  bWindow = new BoardWindow(false);
   bModel = new BoardModel(height, width, bombs);
   bWindow->setModel(bModel);
   bModel->setView(bWindow);

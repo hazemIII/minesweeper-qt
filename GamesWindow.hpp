@@ -3,7 +3,11 @@
 
 #include <QDialog>
 #include <QSqlTableModel>
+#include <QSqlQueryModel>
+#include <QSqlQuery>
 #include <QSqlRecord>
+#include <QSqlField>
+#include <QInputDialog>
 #include "ui_Games.h"
 #include "DataBase.hpp"
 #include "BoardWindow.hpp"

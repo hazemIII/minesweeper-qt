@@ -1,7 +1,5 @@
 #include "boardModel.hpp"
-#include <QDebug>
-#include <QPair>
-#include <iostream>
+
 BoardModel::BoardModel(unsigned int height, unsigned int width, int numOfMines, QObject *parent) 
 {
   srand(time(NULL));
@@ -11,7 +9,7 @@ BoardModel::BoardModel(unsigned int height, unsigned int width, int numOfMines, 
   this->numOfMines = numOfMines;
   this->numOfExposedFields = 0;
   fields.reserve(height);
-  setBombs(numOfMines);
+  setBombs();
 }
 BoardModel::BoardModel(unsigned int height, unsigned int width, QString bombs, QObject *parent)
 {
@@ -23,7 +21,6 @@ BoardModel::BoardModel(unsigned int height, unsigned int width, QString bombs, Q
   setBombs(bombs);
 
 }
-
 
 BoardModel::~BoardModel()
 {
@@ -51,7 +48,7 @@ void BoardModel::setBombs(QString bombs)
   }
 }
 
-void BoardModel::setBombs(int numOfBombs)
+void BoardModel::setBombs()
 {
   for (int i = 0; i < numOfMines; i++)
   {
@@ -61,40 +58,10 @@ void BoardModel::setBombs(int numOfBombs)
 
 void BoardModel::fill()
 {
-  qDebug() << this->serializeBombs();
-  for (unsigned int i = 0; i < height; i++)
+  for (int i = 0; i < height; i++)
   {
     QList<Field*> tmp;
-    for (unsigned int j = 0; j < width; j++)
-    {
-      Field *f = NULL;
-      if ( bombTiles.contains(QPair<int, int>(i, j)))
-      {
-        f = new BombField(i, j);
-        connect(f, SIGNAL(endGame(bool)), this, SIGNAL(endGame(bool)));
-        connect(f, SIGNAL(bombField(int, int)), view, SLOT(bombField(int, int)));
-      }
-      else 
-      {
-        f = new EmptyField(i, j);
-        connect(f, SIGNAL(updateTile(int, int, int, bool)), view, SLOT(updateTile(int, int, int, bool)));
-      }
-      connect(f, SIGNAL(revealField(int, int)), this, SLOT(revealField(int, int)));
-      connect(f, SIGNAL(flagField(int, int, bool)), view, SLOT(flagField(int, int, bool)));
-      connect(f, SIGNAL(addToDiscoveredFields()), this, SLOT(addToDiscoveredFields()));
-      tmp.append(f);
-    }
-    fields.append(tmp);
-  }
-  calculateAround(bombTiles);
-}
-
-void BoardModel::fill(QString bombs)
-{
-  for (unsigned int i = 0; i < height; i++)
-  {
-    QList<Field*> tmp;
-    for (unsigned int j = 0; j < width; j++)
+    for (int j = 0; j < width; j++)
     {
       Field *f = NULL;
       if ( bombTiles.contains(QPair<int, int>(i, j)))

@@ -4,9 +4,15 @@
 #include <QPair>
 #include <QObject>
 #include <QVector>
+#include <QStringList>
 #include "field.hpp"
 #include <cstdlib>
 #include <time.h>
+#include <QPair>
+
+#ifdef QT_DEBUG
+#include <iostream>
+#endif
 
 class BoardModel : public QObject
 {
@@ -23,11 +29,10 @@ class BoardModel : public QObject
     BoardModel(unsigned int height, unsigned int width, QString bombs, QObject *parent = 0);
     ~BoardModel();
     void setBombs(QString bombs);
-    void setBombs(int numOfBombs);
+    void setBombs();
     void fill();
-    void fill(QString bombs);
-    unsigned int width;
-    unsigned int height;
+    int width;
+    int height;
     int numOfMines;
     int numOfExposedFields;
     void calculateAround(QVector<QPair<int, int> > bombTiles);

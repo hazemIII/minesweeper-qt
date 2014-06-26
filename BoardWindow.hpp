@@ -36,11 +36,10 @@ class BoardWindow : public QMainWindow
     BoardModel *model;
 
   public:
-    BoardWindow(QObject *parent = 0);
-    BoardWindow(int height, int width, QString bombs, QObject *parent = 0);
+    BoardWindow(bool game, QObject *parent = 0);
     ~BoardWindow();
     void deleteButtons();
-    void prepareButtons(unsigned int height, unsigned int width, unsigned int numOfMines);
+    void prepareButtons(int height, int width);
     void setModel(BoardModel *model);
 
   public slots:
@@ -53,7 +52,7 @@ class BoardWindow : public QMainWindow
     void endGame(bool won);
   signals:
     void bClicked(QObject*);
-    void newGame();
+    void showMainMenu();
     void leftClick(int, int);
     void rightClick(int, int);
 
