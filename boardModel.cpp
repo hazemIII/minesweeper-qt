@@ -82,7 +82,7 @@ void BoardModel::fill()
     }
     fields.append(tmp);
   }
-  calculateAround(bombTiles);
+  calculateAround();
 }
 
 void BoardModel::revealField(int x, int y)
@@ -93,7 +93,7 @@ void BoardModel::revealField(int x, int y)
   }
 }
 
-void BoardModel::calculateAround(QVector<QPair<int, int> > bombTiles)
+void BoardModel::calculateAround()
 {
   for(QPair<int, int> pair: bombTiles)
   {

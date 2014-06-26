@@ -8,7 +8,6 @@ FieldButton::FieldButton(unsigned int x, unsigned int y)
   this->setCheckable(true);
 }
 
-
 void FieldButton::mousePressEvent(QMouseEvent *e)
 {
   if (e->button() == Qt::LeftButton)
@@ -24,7 +23,7 @@ void FieldButton::flagField(bool flagged)
 {
   if (flagged)
   {
-  this->setIcon(QIcon("flag.gif"));
+  this->setIcon(QIcon(":images/flag.gif"));
   this->setIconSize(this->size());
   } else
   {
@@ -34,7 +33,7 @@ void FieldButton::flagField(bool flagged)
 
 void FieldButton::showBomb()
 {
-  this->setIcon(QIcon("bomb.gif"));
+  this->setIcon(QIcon(":images/bomb.gif"));
   this->setIconSize(this->size());
 }
 
@@ -51,5 +50,4 @@ void FieldButton::updateTile(int around, bool discovered)
     setText("");
   }
   setChecked(discovered);
-
 }

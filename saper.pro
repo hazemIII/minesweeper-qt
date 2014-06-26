@@ -7,6 +7,7 @@ TARGET = saper
 INCLUDEPATH += .
 CONFIG += debug c++11
 QT += widgets core sql
+RESOURCES = saper.qrc
 
 # Input
 HEADERS += boardModel.hpp \

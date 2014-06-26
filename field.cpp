@@ -6,7 +6,6 @@ Field::Field(int x, int y) : x(x), y(y), numOfMinesAround(0), flagged(false), di
 
 void Field::showBomb()
 {
-
 }
 
 void Field::revealField()
@@ -24,7 +23,6 @@ void Field::flagField()
 
 BombField::BombField(int x, int y): Field(x,y)
 {
-
 }
 
 void BombField::revealField()
@@ -45,7 +43,6 @@ void BombField::showField()
 
 EmptyField::EmptyField(int x, int y): Field(x,y)
 {
-
 }
 
 void EmptyField::revealField()

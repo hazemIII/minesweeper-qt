@@ -23,7 +23,6 @@ class BoardModel : public QObject
     QObject *view;
     QVector<QPair<int, int> > bombTiles;
 
-
   public:
     BoardModel(unsigned int height, unsigned int width, int numOfMines, QObject *parent = 0);
     BoardModel(unsigned int height, unsigned int width, QString bombs, QObject *parent = 0);
@@ -35,15 +34,13 @@ class BoardModel : public QObject
     int height;
     int numOfMines;
     int numOfExposedFields;
-    void calculateAround(QVector<QPair<int, int> > bombTiles);
+    void calculateAround();
     void showAllBombs();
     void setView(QObject *view);
     QString serializeBombs();
     void revealAllFields();
 
   signals:
-    void winGameGame();
-    void UTILE(int, int, int);
     void sendFlagField(int, int, bool);
     void endGame(bool);
     void showBomb(int, int);

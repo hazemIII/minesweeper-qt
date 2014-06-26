@@ -11,7 +11,6 @@ class DataBase
 private:
   DataBase(); 
   DataBase(const DataBase &);
-  DataBase& operator=(const DataBase&);
   ~DataBase() {}
   QSqlDatabase db;
 public:

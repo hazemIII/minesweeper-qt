@@ -27,11 +27,8 @@ class BoardWindow : public QMainWindow
     QHBoxLayout *upperLayout;
     QGridLayout *boardLayout;
     QLCDNumber *timeWidget;
-    QPushButton asd;
-    NewGameWindow dial;
     QList<QList<FieldButton*> > buttons;
-    QAction *newGameAction;
-    QTimer *timer;
+    QAction *mainMenuAction;
     QObject *parent;
     BoardModel *model;
 
@@ -44,14 +41,12 @@ class BoardWindow : public QMainWindow
 
   public slots:
     void updateTime();
-    void UTILE(int x, int y, int mines);
     void bombField(int x, int y);
-
     void updateTile(int x, int y, int around, bool discovered);
     void flagField(int x, int y, bool flagged);
     void endGame(bool won);
+
   signals:
-    void bClicked(QObject*);
     void showMainMenu();
     void leftClick(int, int);
     void rightClick(int, int);

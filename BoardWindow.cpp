@@ -12,8 +12,8 @@ BoardWindow::BoardWindow(bool game, QObject *parent)
   boardLayout->setVerticalSpacing(0);
   if (game)
   {
-    newGameAction = this->menuBar()->addAction("Menu główne");
-    connect(newGameAction, SIGNAL(triggered()), this, SIGNAL(showMainMenu()));
+    mainMenuAction = this->menuBar()->addAction("Menu główne");
+    connect(mainMenuAction, SIGNAL(triggered()), this, SIGNAL(showMainMenu()));
 
     this->timeWidget = new QLCDNumber(this);
 
@@ -118,12 +118,6 @@ void BoardWindow::updateTime()
 void BoardWindow::updateTile(int x, int y, int around, bool discovered)
 {  
   buttons[x][y]->updateTile(around, discovered);
-}
-
-void BoardWindow::UTILE(int x, int y, int mines)
-{
-  buttons[x][y]->setText(mines>0?QString::number(mines):" ");
-  buttons[x][y]->setChecked(true);
 }
 
 

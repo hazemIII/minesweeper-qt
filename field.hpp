@@ -20,7 +20,6 @@ class Field : public QObject
 
   signals:
     void revealFields(int x, int y);
-    void utile(int x, int y, bool mine, int around, bool checked);
     void flagField(int x, int y, bool flagged);
     void addToDiscoveredFields();
 
@@ -53,7 +52,6 @@ class EmptyField : public Field
     void showField();
   signals:
     void revealField(int x, int y);
-    void UTILE(int, int, int);
 };
 
 #endif
