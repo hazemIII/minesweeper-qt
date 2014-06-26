@@ -13,7 +13,6 @@ class MineSweeperApp : public QObject
   private:
     Game *game;
     NewGameWindow ngWindow;
-    DataBase *db;
     PlayersWindow playersWindow;
 
   public:
@@ -21,6 +20,7 @@ class MineSweeperApp : public QObject
     ~MineSweeperApp();
   public slots:
     void newGame();
+    void showDataBase();
 
 signals:
     void hideMainWindow();

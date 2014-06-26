@@ -16,6 +16,7 @@ class PlayersWindow : public QDialog
     PlayersWindow(QWidget *parent = 0, Qt::WindowFlags f = 0);
     ~PlayersWindow();
     int playerId;
+    int exec();
     
 
   private:

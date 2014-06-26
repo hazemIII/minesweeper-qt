@@ -4,7 +4,6 @@
 MineSweeperApp::MineSweeperApp() 
 {
   game = nullptr;
-  db = DataBase::getInstance();
 }
 
 MineSweeperApp::~MineSweeperApp()
@@ -29,15 +28,15 @@ void MineSweeperApp::newGame()
     emit hideMainWindow();
   } else
   {
-    if (game == nullptr)
-    {
-      QApplication::quit();
-    }
+    return;
   }
   } else
   {
-    QApplication::quit();
     return;
   }
 }
 
+void MineSweeperApp::showDataBase()
+{
+  playersWindow.exec();
+}

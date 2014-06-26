@@ -12,6 +12,7 @@ MainWindow::MainWindow()
   layout->addWidget(newGameButton);
   app = new MineSweeperApp();
   connect(newGameButton, SIGNAL(clicked()), app, SLOT(newGame()));
+  connect(databaseButton, SIGNAL(clicked()), app, SLOT(showDataBase()));
   connect(app, SIGNAL(hideMainWindow()), this, SLOT(hide()));
   this->show();
 }

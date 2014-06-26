@@ -1,18 +1,16 @@
 #include "PlayersWindow.hpp"
 #include <QDebug>
-
 #include <QSqlQueryModel>
 #include <QSqlQuery>
 #include <QSqlField>
-
 #include <QInputDialog>
+
 PlayersWindow::PlayersWindow(QWidget *parent, Qt::WindowFlags f )
 {
   gamesWindow = nullptr;
   db = DataBase::getInstance();
   ui.setupUi(this);
   connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SLOT(adds(QModelIndex)));
-  //connect(ui.view, SIGNAL(doubleClicked(QModelIndex)), this, SIGNAL(accepted()));
   ui.view->setSelectionMode(QAbstractItemView::SingleSelection);
   ui.view->setSelectionBehavior(QAbstractItemView::SelectRows);
   model = new QSqlTableModel(this, db->dataBase());
@@ -85,4 +83,10 @@ void PlayersWindow::accept()
     playerId = req.field("id").value().toInt();
     QDialog::accept();
   }
+}
+
+int PlayersWindow::exec()
+{
+  model->select();
+  return QDialog::exec();
 }
