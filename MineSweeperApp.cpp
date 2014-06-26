@@ -46,5 +46,6 @@ void MineSweeperApp::deleteGame()
   if (game != nullptr)
   {
     delete game;
+    game = nullptr;
   }
 }

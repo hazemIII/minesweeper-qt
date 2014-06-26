@@ -5,7 +5,7 @@
 TEMPLATE = app
 TARGET = saper
 INCLUDEPATH += .
-CONFIG += debug c++11
+CONFIG += c++11 static
 QT += widgets core sql
 RESOURCES = saper.qrc
 
